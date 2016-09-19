@@ -41,4 +41,4 @@ captures/
 *.jks
 
 # Databases
-.db
+*.db
