@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Youth Songs</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="menu_search">Поиск</string>
+    <string name="menu_contents">Содержание</string>
+    <string name="menu_favorite">Избранное</string>
+    <string name="menu_remarks">Обозначения</string>
+    <string name="menu_about">О программе</string>
+    <string name="title_activity_contents">ContentsActivity</string>
+    <string name="search_hint">Поиск</string>
+    <string name="setting_chord_title">Отображение аккордов</string>
+    <string name="setting_chord_summary">Включить или отключить показ аккордов</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="KeyWordsInAuthtorsText">
+        <item>Слова и музыка:</item>
+        <item>Музыка:</item>
+        <item>Слова:</item>
+        <item>Слова и музыка припева:</item>
+    </string-array>
+    <string-array name="KeyWordsInSongsText">
+        <item>Пр.:</item>
+        <item>Пр.</item>
+        <item>Пр.1:</item>
+        <item>Пр.2:</item>
+        <item>Пр.2</item>
+        <item>Пр.3:</item>
+        <item>Bridge:</item>
+        <item>Bridge</item>
+        <item>Bridge 1:</item>
+        <item>Bridge 1</item>
+        <item>Bridge 2:</item>
+        <item>Bridge 3:</item>
+        <item>End:</item>
+        <item>Куп.</item>
+        <item>1куп.</item>
+        <item>2куп.</item>
+        <item>Intro:</item>
+    </string-array>
+    <string-array name="Theme_Church">
+        <item>Единство верующих</item>
+        <item>Причастие</item>
+        <item>Церковь</item>
+    </string-array>
+</resources>

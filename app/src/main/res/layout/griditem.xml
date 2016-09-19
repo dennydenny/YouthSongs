@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Button
+    android:id="@+id/push_button"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    android:textSize="20sp"
+    android:background="@color/transparent"
+    android:textColor="@color/black"
+    android:text="F"
+    android:gravity="center"
+    android:clickable="false"
+    android:focusable="false"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="en_name" />
+    <item type="id" name="authors" />
+    <item type="id" name="main_text" />
+</resources>
