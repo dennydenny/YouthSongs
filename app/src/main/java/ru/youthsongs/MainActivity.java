@@ -25,6 +25,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    // Название песни, выбранной в данный момент.
     String selected_song;
 
     @Override
@@ -32,18 +34,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Note settings. We need it to do not reflesh UI in onResume() method
+        // Записываем настройки. Это необходимо, чтобы в будущем не обновлять UI в методе onResume().
+        /*
+        Комментирую, чтобы избавиться от этой настройки в будущем.
         SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(this);
         boolean show_chords1 = sPref.getBoolean("show_chords", false);
         sPref.edit().putBoolean("show_chords1", show_chords1);
+        */
 
-        Log.i("Settings", "Now show_chords1 is " + show_chords1 );
-
-        // Default rundom song
+        // Выбираем случайную песню.
         DatabaseHelper sql = new DatabaseHelper(this);
         selected_song = sql.getrundomsong();
 
-        // Check if any song was sent to activity
+        // Проверяем, были ли отправлена какая-либо песня в эту активити.
         if (getIntent().getStringExtra("selected_song") != null) {
             selected_song = getIntent().getStringExtra("selected_song");
         }
@@ -52,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
-        // Put string to use it in onResume() method where we check is settings were changed
-        //sPref.edit().putString("selected_song", selected_song).apply();
+        // Отображаем песню.
         showsong(selected_song);
     }
 
@@ -291,20 +293,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     /*
-    General method to show songs.
-    Show text or image song in dependens of settings
+    Основной метод отображения песни.
      */
     private void showsong (String selected_song) {
         DatabaseHelper sql = new DatabaseHelper(getApplicationContext());
-
-        if (isshowchordsettingset()) {
-            showimagesong(sql.getimagesongbyname(selected_song));
-        } else {
-            showtextsong(sql.getsongbyname(selected_song));
+        showtextsong(sql.getsongbyname(selected_song));
         }
-    }
-
-
-
 }
-
