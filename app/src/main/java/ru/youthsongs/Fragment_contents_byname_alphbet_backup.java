@@ -27,7 +27,7 @@ public class Fragment_contents_byname_alphbet_backup extends Fragment {
 
 
         final DatabaseHelper sql = new DatabaseHelper(getActivity().getApplicationContext());
-        ArrayList<String> songsfirstletter = sql.getsongsfirstletter();
+        ArrayList<String> songsfirstletter = sql.GetSongsFirstLetter();
 
         table_songs_byname = (TableLayout) v.findViewById(R.id.table_songs_byname);
 

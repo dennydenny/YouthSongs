@@ -44,12 +44,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Выбираем случайную песню.
         DatabaseHelper sql = new DatabaseHelper(this);
-        selected_song = sql.getrundomsong();
+        selected_song = sql.GetRundomSongName();
 
         // Проверяем, были ли отправлена какая-либо песня в эту активити.
         if (getIntent().getStringExtra("selected_song") != null) {
             selected_song = getIntent().getStringExtra("selected_song");
         }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.reader_toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle("");
@@ -158,24 +159,25 @@ public class MainActivity extends AppCompatActivity {
         reader_title.setText(song_name);
     }
 
-    public void showtextsong (ArrayList<String> song_data) {
+    public void ShowTextSong (Song song) {
         long timeout= System.currentTimeMillis();
 
-        String song_name = song_data.get(0);
-        String song_text = song_data.get(1);
-        String song_num = song_data.get(5);
+        String song_name = song.getName();
+        String song_text = song.getText();
+        String song_num = song.getNumber();
         String songs_en_name = "";
         String songs_authors = "";
         String songs_alt_name = "";
-        // Checking additional song's data
-        if (song_data.get(2) != null) {
-            songs_en_name = song_data.get(2);
+
+        // Проверяем существование дополнительныйх данных песни.
+        if (song.getEnName() != null) {
+            songs_en_name = song.getEnName();
         }
-        if (song_data.get(3) != null) {
-            songs_authors = song_data.get(3);
+        if (song.getAuthors() != null) {
+            songs_authors = song.getAuthors();
         }
-        if (song_data.get(4) != null) {
-            songs_alt_name = song_data.get(4);
+        if (song.getAltName() != null) {
+            songs_alt_name = song.getAltName();
         }
 
         /* Creating main layout
@@ -204,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Formatting song's name in toolbar (title)
         Toolbar toolbar = (Toolbar) findViewById(R.id.reader_toolbar);
-        Log.i("Showsong", "Song is " + song_name);
+        Log.i("Showsong", "Song name is " + song_name);
         toolbar.setTitle(song_name);
 
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/calibri.otf");
@@ -220,12 +222,11 @@ public class MainActivity extends AppCompatActivity {
 
         ll.addView(song_number);
 
-        // Formatting song's main text
+        // Форматируем основной текст песни.
         TextView tv = new TextView(this);
 
         tv.setTypeface(type);
         tv.setId(R.id.main_text);
-        //tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP  , getResources().getDimension(R.dimen.reader_main_text));
         tv.setTextSize(getResources().getDimension(R.dimen.reader_main_text));
         tv.setLineSpacing(0.0f, 1.3f);
 
@@ -238,23 +239,24 @@ public class MainActivity extends AppCompatActivity {
         SpannableString song_text_format = Formatter.makeFormatForText_v2(this, song_text);
         tv.setText(song_text_format);
 
-        // Checking alternative song's name
+        // Проверяем существование альт. названия и вставляем в подзаголовок тулбара.
         if (!songs_alt_name.isEmpty()) {
             Log.i("Formatter", "Subtitle is " + songs_alt_name);
             toolbar.setSubtitle("(" + songs_alt_name + ")");
             toolbar.setSubtitleTextColor(Color.WHITE);
         }
 
+        // Проверяем существование анг. названия и вставляем под текстом песни.
         if (!songs_en_name.isEmpty()) {
             Log.i("Formatter", " songs_en_name is " + songs_en_name);
 
-            // Formatting en_name of song
             TextView en_name = new TextView(this);
             en_name.setTextSize(getResources().getDimension(R.dimen.reader_secondary_text));
             en_name.setTypeface(type);
             en_name.setTypeface(en_name.getTypeface(), Typeface.BOLD_ITALIC);
             en_name.setText(songs_en_name);
-            // Adding to UI
+
+            // Добавляем в UI.
             ll.addView(en_name);
         }
 
@@ -274,7 +276,6 @@ public class MainActivity extends AppCompatActivity {
         // Testing
         Log.i("Showtextsong", "Child count is  " + relativeLayout.getChildCount());
 
-
         // Checking worktime
         timeout = System.currentTimeMillis() - timeout;
         Log.i("Showtextsong", "Time of Showtextsong " + timeout + " ms");
@@ -291,12 +292,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     /*
     Основной метод отображения песни.
      */
     private void showsong (String selected_song) {
         DatabaseHelper sql = new DatabaseHelper(getApplicationContext());
-        showtextsong(sql.getsongbyname(selected_song));
+        ShowTextSong(sql.GetSongByName(selected_song));
         }
 }

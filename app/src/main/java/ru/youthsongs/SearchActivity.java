@@ -78,7 +78,7 @@ public class SearchActivity extends AppCompatActivity {
 
             if (query.matches("[0-9]+")) {
                 // Digit input
-                String [] result = sql.getsongbynumber(Integer.valueOf(query));
+                String [] result = sql.GetSongByNumber(Integer.valueOf(query));
                 if (result.length > 0) {
                     ArrayList<Map<String, Object>> data = new ArrayList<Map<String, Object>>(result.length);
                     Map<String, Object> m;
@@ -100,7 +100,7 @@ public class SearchActivity extends AppCompatActivity {
             }
             else {
                 // Text input
-                ArrayList<String> result = sql.getsongsbyquery(query);
+                ArrayList<String> result = sql.GetSongsByQuery(query);
                 if (result.size() > 0) {
 
                     ArrayList<Map<String, Object>> data = new ArrayList<Map<String, Object>>(result.size());

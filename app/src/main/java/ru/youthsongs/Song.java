@@ -8,7 +8,7 @@ public class Song {
     private String _text;
 
     // Номер песни.
-    private int _number;
+    private String _number;
 
     // Английское название песни (если есть).
     private String _enName;
@@ -22,13 +22,13 @@ public class Song {
     // Геттер/сеттер для названия песни.
     public String getName()
     {
-        return  _name;
+        return _name;
     }
 
     public void setName(String name)
     {
         if (name != null) {
-            name = _name;
+            _name = name;
         }
         else
         {
@@ -54,14 +54,14 @@ public class Song {
     }
 
     // Геттер/сеттер для номера песни.
-    public int getNumber()
+    public String getNumber()
     {
         return _number;
     }
 
-    public void setNumber(int number)
+    public void setNumber(String number)
     {
-        if (number != 0) {
+        if (number != null) {
             _number = number;
         }
         else
@@ -76,15 +76,9 @@ public class Song {
         return _enName;
     }
 
-    public void setNumber(String enName)
+    public void setEnName(String enName)
     {
-        if (enName != null) {
             _enName = enName;
-        }
-        else
-        {
-            throw new IllegalArgumentException();
-        }
     }
 
     // Геттер/сеттер для авторов песни.
@@ -95,13 +89,7 @@ public class Song {
 
     public void setAuthors(String Authors)
     {
-        if (Authors != null) {
             _authors = Authors;
-        }
-        else
-        {
-            throw new IllegalArgumentException();
-        }
     }
 
     // Геттер/сеттер для альт. названия песни.
@@ -112,12 +100,6 @@ public class Song {
 
     public void setAltName (String altName)
     {
-        if (altName != null) {
             __altName = altName;
-        }
-        else
-        {
-            throw new IllegalArgumentException();
-        }
     }
 }

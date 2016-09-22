@@ -2,60 +2,94 @@
 <items version="2" >
 
     <item
-        jar="C:\Developer\Stuff\YouthSongs\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
-        <dex dex="C:\Developer\Stuff\YouthSongs\app\build\intermediates\pre-dexed\release\classes-05ae0a2a2fd815edc48f431db8ba715af5988d74.jar" />
-    </item>
-    <item
-        jar="C:\Developer\Stuff\YouthSongs\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
-        <dex dex="C:\Developer\Stuff\YouthSongs\app\build\intermediates\pre-dexed\release\classes-a86618a94c17a4b37d2aa58a2878d95055943ba3.jar" />
-    </item>
-    <item
-        jar="C:\Developer\Stuff\YouthSongs\app\build\intermediates\exploded-aar\com.commit451\PhotoView\1.2.4\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="890be6e1e56a883c9b407a11e067a61886dec123">
-        <dex dex="C:\Developer\Stuff\YouthSongs\app\build\intermediates\pre-dexed\release\classes-d77b65e23f469be1e0aa7876c5fc99f5e289b192.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lobzik\.gradle\caches\modules-2\files-2.1\com.readystatesoftware.sqliteasset\sqliteassethelper\2.0.1\d5f02e4a4d65ec0fbb339f2e4228723d1540bb9f\sqliteassethelper-2.0.1.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="d5f02e4a4d65ec0fbb339f2e4228723d1540bb9f">
-        <dex dex="C:\Developer\Stuff\YouthSongs\app\build\intermediates\pre-dexed\release\sqliteassethelper-2.0.1-797a2032c1c7f1c45244ac9f6684a19dbf0b27ee.jar" />
-    </item>
-    <item
-        jar="C:\Developer\Stuff\YouthSongs\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
-        <dex dex="C:\Developer\Stuff\YouthSongs\app\build\intermediates\pre-dexed\release\classes-612215e032e7c425b99ca327f43aca3fe41ec3ff.jar" />
-    </item>
-    <item
-        jar="C:\Developer\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.1\support-annotations-23.1.1.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
-        <dex dex="C:\Developer\Stuff\YouthSongs\app\build\intermediates\pre-dexed\release\support-annotations-23.1.1-def5aced2ed445d6b4ffc866b54f4f877884951f.jar" />
-    </item>
-    <item
-        jar="C:\Developer\Stuff\YouthSongs\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
-        <dex dex="C:\Developer\Stuff\YouthSongs\app\build\intermediates\pre-dexed\release\internal_impl-23.1.1-e88e53a90652f017f4935f5a42ba6dd798b5bde4.jar" />
-    </item>
-    <item
-        jar="C:\Developer\Stuff\YouthSongs\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\jars\classes.jar"
-        jumboMode="false"
+        is-multidex="false"
+        jar="C:\Developer\YouthSongs\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
         revision="23.0.2"
         sha1="5c5699834e9722f1c288fea2de82725d078ba127">
-        <dex dex="C:\Developer\Stuff\YouthSongs\app\build\intermediates\pre-dexed\release\classes-ea396ec1e1248bc0de4ed5bf3612345b738c25e9.jar" />
+        <dex dex="C:\Developer\YouthSongs\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.1.1_7433a37f50841252031d13b5ace7114e5e7d7971.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Developer\YouthSongs\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="C:\Developer\YouthSongs\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-23.1.1_32cc3bb488bd74198bd6d75cf9f41daca7230077.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Developer\YouthSongs\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="4b23d22ef49d46ef8873d67d8997eba3fdaabda2">
+        <dex dex="C:\Developer\YouthSongs\app\build\intermediates\pre-dexed\debug\instant-run-bootstrap_adb54f201a97cf27529051635cd8de9435f22e5a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Developer\YouthSongs\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="C:\Developer\YouthSongs\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.1.1_246a46b1cebfe4aa323f94c19449173ca479bb1e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Developer\YouthSongs\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="C:\Developer\YouthSongs\app\build\intermediates\pre-dexed\debug\com.android.support-design-23.1.1_f9c1c576971310d7b50b6c60a1d12adca203d5cf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Developer\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.1\support-annotations-23.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="C:\Developer\YouthSongs\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.1_d4a8b729ebb640f43bfe7238ab47032a8e2e3b49.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Developer\YouthSongs\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="C:\Developer\YouthSongs\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.1_f9e481758b6c5abf78f6cd2fc975bba603f84860.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Константин\.gradle\caches\modules-2\files-2.1\com.readystatesoftware.sqliteasset\sqliteassethelper\2.0.1\d5f02e4a4d65ec0fbb339f2e4228723d1540bb9f\sqliteassethelper-2.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="d5f02e4a4d65ec0fbb339f2e4228723d1540bb9f">
+        <dex dex="C:\Developer\YouthSongs\app\build\intermediates\pre-dexed\debug\sqliteassethelper-2.0.1_986cae4fd351749c026f688b1c148fa7cc6dc08c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Developer\YouthSongs\app\build\intermediates\exploded-aar\com.commit451\PhotoView\1.2.4\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="890be6e1e56a883c9b407a11e067a61886dec123">
+        <dex dex="C:\Developer\YouthSongs\app\build\intermediates\pre-dexed\debug\com.commit451-PhotoView-1.2.4_f3be723009035adf63b2094e24f9901d9679193e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Developer\YouthSongs\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="4a70241e0c3281dddefab096a05eeb7719f87372">
+        <dex dex="C:\Developer\YouthSongs\app\build\intermediates\pre-dexed\debug\instant-run_e71703d4b89ce37a3afe11f8b925d233dc5255c2.jar" />
     </item>
 
 </items>

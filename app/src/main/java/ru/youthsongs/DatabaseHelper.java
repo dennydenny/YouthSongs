@@ -1,9 +1,5 @@
 package ru.youthsongs;
 
-/**
- * Created by Lobzik on 30.01.2016.
- */
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -31,19 +27,12 @@ public class DatabaseHelper extends SQLiteAssetHelper {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 
-
-        public String [] getsongbynumber(int num) {
+        public String [] GetSongByNumber(int num) {
 
             SQLiteDatabase db = getReadableDatabase();
 
             String sqlquery = "SELECT name, substr (text, 1, 40) as text FROM songs WHERE num = " + num;
 
-            //String [] sqlSelect = {songs_name, songs_text};
-            //String sqlTables = songs;
-            //String where = songs_num + " = " + num;
-
-            //qb.setTables(sqlTables);
-           // qb.appendWhere(where);
             Cursor c = db.rawQuery(sqlquery, null);
             c.moveToFirst();
 
@@ -60,70 +49,57 @@ public class DatabaseHelper extends SQLiteAssetHelper {
             return answer;
         }
 
-
         /*
-        Returns song's data by name of song.
-        @param name name of song
-        @return ArrayList<String>:
-        [0] songs_name
-        [1] songs_text
-        [2] songs_en_name if exists
-        [3] songs_authors if exists
-        [4] songs_alt_name if exists
-        [5] songs_number
+        Возвращает объект песни, найденный по входному названию.
          */
-        public ArrayList<String> getsongbyname(String name) {
+        public Song GetSongByName(String name) {
             long timeout= System.currentTimeMillis();
 
             SQLiteDatabase db = getReadableDatabase();
             String sqlquery = "SELECT name, text, en_name, authors, alt_name, num FROM songs WHERE name ='" + name + "'";
             Cursor c = db.rawQuery(sqlquery, null);
             c.moveToFirst();
-            ArrayList<String> result = new ArrayList<String> ();
+            Song song = new Song();
 
             if (c.getCount() == 0) {
-                return result;
+                return null;
             }
 
-            // Song name and text always exists
-            result.add(c.getString(c.getColumnIndex(songs_name)));
-            result.add(c.getString(c.getColumnIndex(songs_text)));
-
-
+            // Название, текст песни и номер существуют всегда
+            song.setName(c.getString(c.getColumnIndex(songs_name)));
+            song.setText(c.getString(c.getColumnIndex(songs_text)));
+            song.setNumber(c.getString(c.getColumnIndex(songs_num)));
 
             if (c.getString(c.getColumnIndex(songs_en_name)) != null) {
-                result.add(c.getString(c.getColumnIndex(songs_en_name)));
+                song.setEnName(c.getString(c.getColumnIndex(songs_en_name)));
             }
                 else {
-                    result.add(null);
+                song.setEnName(null);
                 }
             if (c.getString(c.getColumnIndex(songs_authors)) != null) {
-                result.add(c.getString(c.getColumnIndex(songs_authors)));
+                song.setAuthors(c.getString(c.getColumnIndex(songs_authors)));
             }
                 else {
-                    result.add(null);
+                    song.setAuthors(null);
                 }
             if (c.getString(c.getColumnIndex(songs_alt_name)) != null) {
-                result.add(c.getString(c.getColumnIndex(songs_alt_name)));
+                song.setAltName(c.getString(c.getColumnIndex(songs_alt_name)));
             }
             else {
-                result.add(null);
+                song.setAltName(null);
             }
-
-            // Song number always exists
-            result.add(c.getString(c.getColumnIndex(songs_num)));
 
             timeout = System.currentTimeMillis() - timeout;
 
             Log.i("DB", "Time of getsongbyname " + timeout + " ms");
-            Log.i("getsongbyname", "Size of output array is " + result.size());
 
-            return result;
+            return song;
         }
 
-        public ArrayList<String> getsongsfirstletter (){
+        // Возвращает список уникальных первых букв всех названий песен в БД.
+        public ArrayList<String> GetSongsFirstLetter (){
             SQLiteDatabase db = getReadableDatabase();
-            //String sqlquery = "SELECT DISTINCT substr (name, 1, 1) as letter FROM songs ORDER BY letter";
+
             String sqlquery = "SELECT DISTINCT substr (name, 1, 1) as letter FROM songs WHERE letter != '' ORDER BY letter";
             Cursor c = db.rawQuery(sqlquery, null);
             ArrayList<String> result = new ArrayList<String>();
@@ -131,19 +107,15 @@ public class DatabaseHelper extends SQLiteAssetHelper {
                 String letter = c.getString(c.getColumnIndex("letter"));
                 result.add(letter);
             }
-            /*
-            SELECT DISTINCT substr (name, 1, 1) as letter
-FROM songs
-WHERE letter != ""
-ORDER BY letter
-             */
 
             Log.i("getsongsfirstletter", "Result is " + result.size());
             return result;
         }
 
-        public ArrayList<String> getsongsbyfirstletter (String first_letter){
+        // Возвращает список песен, названия которых начинаются на входную букву.
+        public ArrayList<String> GetSongsByFirstLetter (String first_letter){
             SQLiteDatabase db = getReadableDatabase();
+
             String sqlquery = "SELECT name FROM songs WHERE name like '" + first_letter + "%' ORDER BY name";
             Cursor c = db.rawQuery(sqlquery, null);
             ArrayList<String> songsbyfirstletter = new ArrayList<String>();
@@ -155,8 +127,11 @@ ORDER BY letter
             return songsbyfirstletter;
         }
 
-        public ArrayList<String> getsongsbyquery (String query) {
+        // Возвращает список названий песен, содержащих данных из входной строки.
+        public ArrayList<String> GetSongsByQuery (String query) {
             SQLiteDatabase db = getReadableDatabase();
+
+            // Приводим регистр.
             String querylow = query.toLowerCase();
             String queryup = Character.toString(querylow.charAt(0)).toUpperCase()+querylow.substring(1);
 
@@ -199,7 +174,7 @@ ORDER BY letter
             return answer;
         }
 
-        public String getrundomsong () {
+        public String GetRundomSongName () {
             SQLiteDatabase db = getReadableDatabase();
             String sqlquery = "SELECT MAX(num) as num FROM songs";
             Cursor c = db.rawQuery(sqlquery, null);
@@ -209,12 +184,12 @@ ORDER BY letter
             Random rn = new Random();
             int rundom_song = rn.nextInt(max) + 1;
 
-            String [] temp_result = getsongbynumber(rundom_song);
+            String [] temp_result = GetSongByNumber(rundom_song);
             String result = temp_result[0];
             return result;
         }
 
-        public ArrayList<String> getsongsbytheme (String theme) {
+        public ArrayList<String> GetSongsByTheme (String theme) {
             SQLiteDatabase db = getReadableDatabase();
             String sqlquery = "SELECT song_nums FROM themes WHERE theme = '" + theme + "';";
             Cursor c = db.rawQuery(sqlquery, null);
