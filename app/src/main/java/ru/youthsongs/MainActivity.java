@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("onCreate", "onCreate first song is " + selected_song);
+        
+        // Указание держать экран включенным на всё время работы активити.
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         // Записываем настройки. Это необходимо, чтобы в будущем не обновлять UI в методе onResume().
         /*
@@ -55,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+        Log.d("onCreate", "onCreate second song is " + selected_song);
 
         // Отображаем песню.
         showsong(selected_song);
@@ -119,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putString("selected_song", selected_song);
         Log.d("onSaveInstanceState", "onSaveInstanceState song is " + selected_song);
-
     }
 
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
