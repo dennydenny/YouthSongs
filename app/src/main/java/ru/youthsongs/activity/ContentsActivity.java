@@ -22,9 +22,9 @@ public class ContentsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_contents);
         Toolbar toolbar = (Toolbar) findViewById(R.id.contents_toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setTitle("");
-        setSupportActionBar(toolbar);
+        //toolbar.setTitle("");
         toolbar.setTitle("Выберите песню");
+        setSupportActionBar(toolbar);
 
         // Setting TABS
         TabHost tabHost = (TabHost) findViewById(android.R.id.tabhost);
@@ -60,7 +60,7 @@ public class ContentsActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.menu_about:
-                Toast.makeText(this, "Меню!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Хорошее приложение", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menu_search:
                 startActivity(new Intent(this, SearchActivity.class));
