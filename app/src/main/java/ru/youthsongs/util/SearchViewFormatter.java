@@ -1,4 +1,4 @@
-package ru.youthsongs;
+package ru.youthsongs.util;
 
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;

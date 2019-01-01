@@ -1,4 +1,4 @@
-package ru.youthsongs;
+package ru.youthsongs.activity;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -22,6 +22,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import ru.youthsongs.R;
+import ru.youthsongs.util.DatabaseHelper;
+import ru.youthsongs.util.SearchViewFormatter;
 
 //import android.support.v7.widget.SearchView;
 

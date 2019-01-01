@@ -1,4 +1,4 @@
-package ru.youthsongs;
+package ru.youthsongs.util;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -7,6 +7,8 @@ import android.util.Log;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 import java.util.ArrayList;
 import java.util.Random;
+
+import ru.youthsongs.Song;
 
 public class DatabaseHelper extends SQLiteAssetHelper {
         static final String songs = "songs";;
@@ -20,7 +22,7 @@ public class DatabaseHelper extends SQLiteAssetHelper {
         public static final String songs_text = "text";
         public static final String songs_alt_name = "alt_name";
 
-        private static final String DATABASE_NAME = "Sbornik_v8_t.db";
+        private static final String DATABASE_NAME = "Sbornik_v8.db";
         private static final int DATABASE_VERSION = 1;
 
         public DatabaseHelper (Context context) {

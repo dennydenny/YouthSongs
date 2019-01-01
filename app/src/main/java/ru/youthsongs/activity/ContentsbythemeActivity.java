@@ -1,9 +1,12 @@
-package ru.youthsongs;
+package ru.youthsongs.activity;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import ru.youthsongs.fragment.Fragment_contents_bytheme;
+import ru.youthsongs.R;
 
 public class ContentsbythemeActivity extends AppCompatActivity {
 

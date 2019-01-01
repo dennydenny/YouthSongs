@@ -1,4 +1,4 @@
-package ru.youthsongs;
+package ru.youthsongs.util;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import ru.youthsongs.R;
 
 /**
  * Created by Lobzik on 06.02.2016.

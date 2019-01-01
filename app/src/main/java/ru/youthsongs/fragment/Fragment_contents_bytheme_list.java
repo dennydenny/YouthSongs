@@ -1,4 +1,4 @@
-package ru.youthsongs;
+package ru.youthsongs.fragment;
 
 import android.app.ListFragment;
 import android.os.Bundle;
@@ -9,6 +9,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import ru.youthsongs.activity.ContentsbythemeActivity;
+import ru.youthsongs.util.DatabaseHelper;
 
 public class Fragment_contents_bytheme_list extends ListFragment {
 

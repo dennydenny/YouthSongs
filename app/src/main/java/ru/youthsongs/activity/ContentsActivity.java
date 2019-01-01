@@ -1,4 +1,4 @@
-package ru.youthsongs;
+package ru.youthsongs.activity;
 
 import android.app.LocalActivityManager;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TabHost;
 import android.widget.Toast;
+
+import ru.youthsongs.R;
 
 public class ContentsActivity extends AppCompatActivity {
     LocalActivityManager mLocalActivityManager = new LocalActivityManager(this, false);

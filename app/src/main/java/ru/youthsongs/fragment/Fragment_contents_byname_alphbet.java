@@ -1,4 +1,4 @@
-package ru.youthsongs;
+package ru.youthsongs.fragment;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -12,6 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
 import java.util.ArrayList;
+
+import ru.youthsongs.R;
+import ru.youthsongs.util.DatabaseHelper;
 
 public class Fragment_contents_byname_alphbet extends Fragment {
     /*

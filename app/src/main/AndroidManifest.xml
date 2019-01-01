@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,13 +19,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ContentsActivity"
+            android:name=".activity.ContentsActivity"
             android:label="@string/title_activity_contents"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ContentsbynameActivity" />
-        <activity android:name=".ContentsbythemeActivity" />
+        <activity android:name=".activity.ContentsbynameActivity" />
+        <activity android:name=".activity.ContentsbythemeActivity" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".activity.SearchActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -36,7 +36,7 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".SettingsActivity"
+        <activity android:name=".activity.SettingsActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -1,4 +1,4 @@
-package ru.youthsongs;
+package ru.youthsongs.fragment;
 
 
 import android.app.Fragment;
@@ -15,6 +15,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import ru.youthsongs.R;
 
 
 public class Fragment_contents_bytheme extends Fragment {

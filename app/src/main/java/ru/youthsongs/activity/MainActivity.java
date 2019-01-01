@@ -1,4 +1,4 @@
-package ru.youthsongs;
+package ru.youthsongs.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,7 +23,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import ru.youthsongs.R;
+import ru.youthsongs.Song;
+import ru.youthsongs.util.DatabaseHelper;
+import ru.youthsongs.util.Formatter;
 
 public class MainActivity extends AppCompatActivity {
 
