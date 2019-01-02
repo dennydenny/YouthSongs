@@ -2,36 +2,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".activity.MainActivity">
 
-    <item android:id="@+id/menu_contents"
-        android:title="@string/menu_contents"
-        android:icon="@drawable/ic_format_list_numbered"
-        android:orderInCategory="2"
-        app:showAsAction="always" />
-
     <item android:id="@+id/menu_search"
         android:title="@string/menu_search"
         android:icon="@drawable/ic_search"
         android:orderInCategory="1"
         app:showAsAction="always" />
 
+    <item android:id="@+id/menu_contents"
+        android:title="@string/menu_contents"
+        android:icon="@drawable/ic_format_list_numbered"
+        android:orderInCategory="2"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/menu_random_song"
+        android:title="@string/menu_random_song"
+        android:orderInCategory="3"
+        app:showAsAction="never" />
+
     <item android:id="@+id/menu_favorite"
         android:title="@string/menu_favorite"
-        android:orderInCategory="100"
+        android:orderInCategory="3"
         app:showAsAction="never" />
 
     <item android:id="@+id/menu_settings"
         android:title="@string/menu_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="4"
         app:showAsAction="never" />
 
     <item android:id="@+id/menu_remarks"
         android:title="@string/menu_remarks"
-        android:orderInCategory="100"
+        android:orderInCategory="5"
         app:showAsAction="never" />
 
     <item android:id="@+id/menu_about"
         android:title="@string/menu_about"
-        android:orderInCategory="100"
+        android:orderInCategory="6"
         app:showAsAction="never" />
 
 </menu>

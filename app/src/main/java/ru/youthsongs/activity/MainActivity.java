@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private String previousTextSize;
     // List of ids of text views which should meet shared preferences.
     private List<Integer> updatableTextViewsIds = new ArrayList<>();
+    private DatabaseHelper sql;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         // Выбираем случайную песню.
-        DatabaseHelper sql = new DatabaseHelper(this);
+        sql = new DatabaseHelper(this);
         selected_song = sql.GetRundomSongName();
 
         // Проверяем, были ли отправлена какая-либо песня в эту активити.
@@ -91,6 +92,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.menu_settings:
                 startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+                break;
+            case R.id.menu_random_song:
+                // Smells bad.
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra("selected_song", sql.GetRundomSongName());
+                startActivity(intent);
                 break;
         }
 

@@ -16,12 +16,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e683078-f833-4f32-87f6-3b9e4f9ab7a5" name="Default" comment="Implemented feature to dinamiclly change te">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/ids.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/ids.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/xml/settings.xml" afterDir="false" />
     </list>
@@ -80,11 +77,9 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="241" column="36" selection-start-line="241" selection-start-column="36" selection-end-line="241" selection-end-column="36" />
+            <state relative-caret-position="187">
+              <caret line="96" column="30" selection-start-line="96" selection-start-column="30" selection-end-line="96" selection-end-column="30" />
               <folding>
-                <element signature="method#onCreateOptionsMenu#0;class#MainActivity#0" />
-                <element signature="method#onOptionsItemSelected#0;class#MainActivity#0" />
                 <element signature="e#3646#3697#0" expanded="true" />
                 <element signature="e#3558#3559#0" expanded="true" />
                 <element signature="e#3591#3592#0" expanded="true" />
@@ -93,6 +88,45 @@
                 <element signature="e#10142#10193#0" expanded="true" />
                 <element signature="e#10764#10815#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/settings.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="77" selection-start-line="1" selection-start-column="77" selection-end-line="1" selection-end-column="77" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="10" column="45" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ContentsbythemeActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/ContentsbythemeActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+              <caret line="33" column="1" selection-start-line="33" selection-start-column="1" selection-end-line="35" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DatabaseHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/DatabaseHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="178" column="22" selection-start-line="178" selection-start-column="22" selection-end-line="178" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -111,10 +145,13 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>tabcontent</find>
-      <find>show_chords</find>
       <find>toast</find>
       <find>main_text</find>
       <find>R.id.main_text</find>
+      <find>putEx</find>
+      <find>show_chords</find>
+      <find>setting_chord</find>
+      <find>DatabaseHelper</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2387,11 +2424,11 @@
         <option value="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/ContentsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-v21/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/xml/settings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/ids.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/xml/settings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/MainActivity.java" />
       </list>
     </option>
@@ -2699,14 +2736,21 @@
       <option name="project" value="LOCAL" />
       <updated>1546374701742</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Implemented feature to dynamically change text size.">
+      <created>1546453349296</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1546453349297</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info anchor="bottom" id="Android Profiler" order="7" />
+      <window_info anchor="bottom" id="Android Profiler" order="7" weight="0.32905984" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
@@ -2721,11 +2765,11 @@
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4985755" visible="true" weight="0.24966443" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4985755" visible="true" weight="0.24966443" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.33333334" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32905984" />
       <window_info anchor="right" id="Gradle" order="3" weight="0.3295302" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.5014245" side_tool="true" visible="true" weight="0.24966443" />
+      <window_info id="Structure" order="1" sideWeight="0.5014245" side_tool="true" visible="true" weight="0.24966443" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -2745,7 +2789,8 @@
     <MESSAGE value="Packages were created." />
     <MESSAGE value="Removed ignored files" />
     <MESSAGE value="Fixed duplicated toolbar" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed duplicated toolbar" />
+    <MESSAGE value="Implemented feature to dynamically change text size." />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented feature to dynamically change text size." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2815,13 +2860,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/DatabaseHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -2914,13 +2952,6 @@
             <element signature="e#6422#6667#0" expanded="true" />
             <element signature="e#6666#6667#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/ContentsbythemeActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="17" column="53" lean-forward="true" selection-start-line="17" selection-start-column="53" selection-end-line="17" selection-end-column="53" />
         </state>
       </provider>
     </entry>
@@ -3063,19 +3094,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/settings.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
-          <folding>
-            <element signature="e#541#567#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/search_menu.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -3091,13 +3109,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="43" selection-start-line="3" selection-start-column="43" selection-end-line="3" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -3123,13 +3134,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/DatabaseHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="178" column="22" selection-start-line="178" selection-start-column="22" selection-end-line="178" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="10" column="45" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/settings.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="77" selection-start-line="1" selection-start-column="77" selection-end-line="1" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/ContentsbythemeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="33" column="1" selection-start-line="33" selection-start-column="1" selection-end-line="35" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="241" column="36" selection-start-line="241" selection-start-column="36" selection-end-line="241" selection-end-column="36" />
+        <state relative-caret-position="187">
+          <caret line="96" column="30" selection-start-line="96" selection-start-column="30" selection-end-line="96" selection-end-column="30" />
           <folding>
-            <element signature="method#onCreateOptionsMenu#0;class#MainActivity#0" />
-            <element signature="method#onOptionsItemSelected#0;class#MainActivity#0" />
             <element signature="e#3646#3697#0" expanded="true" />
             <element signature="e#3558#3559#0" expanded="true" />
             <element signature="e#3591#3592#0" expanded="true" />
