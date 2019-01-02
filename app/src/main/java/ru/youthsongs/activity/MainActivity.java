@@ -16,12 +16,14 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ru.youthsongs.R;
 import ru.youthsongs.Song;
@@ -32,23 +34,21 @@ public class MainActivity extends AppCompatActivity {
 
     // Название песни, выбранной в данный момент.
     String selected_song;
+    private SharedPreferences sp;
+    private String previousTextSize;
+    // List of ids of text views which should meet shared preferences.
+    private List<Integer> updatableTextViewsIds = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        setPreviousTextSize();
         setContentView(R.layout.activity_main);
         Log.d("onCreate", "onCreate first song is " + selected_song);
-        
+
         // Указание держать экран включенным на всё время работы активити.
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-        // Записываем настройки. Это необходимо, чтобы в будущем не обновлять UI в методе onResume().
-        /*
-        Комментирую, чтобы избавиться от этой настройки в будущем.
-        SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean show_chords1 = sPref.getBoolean("show_chords", false);
-        sPref.edit().putBoolean("show_chords1", show_chords1);
-        */
 
         // Выбираем случайную песню.
         DatabaseHelper sql = new DatabaseHelper(this);
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("onCreate", "onCreate second song is " + selected_song);
 
         // Отображаем песню.
-        showsong(selected_song);
+        showSong(selected_song);
     }
 
     @Override
@@ -98,30 +98,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
+        // Checking does setting was changed. If so we'll update size of text.
+        if (!previousTextSize.equals(sp.getString("textSizePref", getResources().getString(R.string.textSizesDefault)))) {
+            updateTextSize();
+        }
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        /*
-        // Check is setting "show_chords" was changed (previos value of setting in show_chords1)
-        // TODO: Create feature that checks is settings were changed. If so - show song with new settings, else do nothing
-
-        SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean show_chords = sPref.getBoolean("show_chords", false);
-        boolean show_chords1 = sPref.getBoolean("show_chords1", false);
-
-        Log.i("Settings", "Now (on restart) show_chords is " + show_chords);
-        Log.i("Settings", "Now (on restart) show_chords1 is " + show_chords1);
-
-        if (show_chords != show_chords1) {
-            showsong(sPref.getString("selected_song", ""));
-            Toast.makeText(this, "Settings were changed!", Toast.LENGTH_SHORT).show();
-        }
-        Toast.makeText(this, "Restart!", Toast.LENGTH_SHORT).show();
-        */
     }
 
     protected void onSaveInstanceState(Bundle outState) {
@@ -134,41 +121,11 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         selected_song = savedInstanceState.getString("selected_song");
         Log.d("onRestoreInstanceState", "onRestoreInstanceState song is " + selected_song);
-        //showsong(selected_song);
+        //showSong(selected_song);
     }
 
-    public void showimagesong (String [] song_data) {
-        String song_name = song_data[0];
-        String song_file = song_data[1];
-
-        Log.i("Chords", "Our song file is " + song_file);
-
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.reader_relative_body);
-
-        ImageView imageView = new ImageView(this);
-        int id = this.getResources().getIdentifier(song_file, "drawable", this.getPackageName());
-
-        Log.i("Chords", "Our song ID is " + id);
-
-        imageView.setImageResource(id);
-        //imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        imageView.setBackgroundResource(R.color.white);
-
-        relativeLayout.addView(imageView);
-
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)imageView.getLayoutParams();
-        params.addRule(RelativeLayout.ABOVE, R.id.reader_toolbar);
-
-        imageView.setLayoutParams(params);
-
-        //PhotoViewAttacher mAttacher = new PhotoViewAttacher(imageView);
-
-        TextView reader_title = (TextView) findViewById(R.id.reader_title);
-        reader_title.setText(song_name);
-    }
-
-    public void ShowTextSong (Song song) {
-        long timeout= System.currentTimeMillis();
+    public void showTextSong(Song song) {
+        long timeout = System.currentTimeMillis();
 
         String song_name = song.getName();
         String song_text = song.getText();
@@ -207,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
 
         scrollView.addView(ll, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)scrollView.getLayoutParams();
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) scrollView.getLayoutParams();
         params.addRule(RelativeLayout.ABOVE, R.id.reader_toolbar);
         params.setMargins(16, 0, 0, 0);
         scrollView.setLayoutParams(params);
@@ -221,21 +178,24 @@ public class MainActivity extends AppCompatActivity {
 
         // Formatting song's number
         TextView song_number = new TextView(this);
+        song_number.setId(R.id.song_number);
+        // Adding to updatable array to be able to increase text size within preferences.
+        this.updatableTextViewsIds.add(R.id.song_number);
         song_number.setTypeface(type);
         song_number.setTypeface(song_number.getTypeface(), Typeface.ITALIC);
-        song_number.setTextSize(getResources().getDimension(R.dimen.reader_secondary_text));
         song_number.setGravity(Gravity.START);
         song_number.setPadding(0, 8, 0, 0);
         song_number.setText(song_num);
 
         ll.addView(song_number);
 
-        // Форматируем основной текст песни.
+        // Formatting main text of song
         TextView tv = new TextView(this);
 
         tv.setTypeface(type);
         tv.setId(R.id.main_text);
-        tv.setTextSize(getResources().getDimension(R.dimen.reader_main_text));
+        this.updatableTextViewsIds.add(R.id.main_text);
+        //tv.setTextSize(getResources().getDimension(R.dimen.reader_main_text));
         tv.setLineSpacing(0.0f, 1.3f);
 
         ll.addView(tv);
@@ -259,6 +219,8 @@ public class MainActivity extends AppCompatActivity {
             Log.i("Formatter", " songs_en_name is " + songs_en_name);
 
             TextView en_name = new TextView(this);
+            en_name.setId(R.id.en_name);
+            this.updatableTextViewsIds.add(R.id.en_name);
             en_name.setTextSize(getResources().getDimension(R.dimen.reader_secondary_text));
             en_name.setTypeface(type);
             en_name.setTypeface(en_name.getTypeface(), Typeface.BOLD_ITALIC);
@@ -273,6 +235,8 @@ public class MainActivity extends AppCompatActivity {
 
             // Formatting authtor's info
             TextView authors = new TextView(this);
+            authors.setId(R.id.authors);
+            this.updatableTextViewsIds.add(R.id.authors);
             authors.setTextSize(getResources().getDimension(R.dimen.reader_secondary_text));
             authors.setTypeface(type);
             SpannableString songs_authors_format = Formatter.makeFormatForAuthors(this, songs_authors);
@@ -281,30 +245,40 @@ public class MainActivity extends AppCompatActivity {
             // Adding to UI
             ll.addView(authors);
         }
-        // Testing
-        Log.i("Showtextsong", "Child count is  " + relativeLayout.getChildCount());
+        updateTextSize();
 
         // Checking worktime
         timeout = System.currentTimeMillis() - timeout;
         Log.i("Showtextsong", "Time of Showtextsong " + timeout + " ms");
-        }
-
-    private boolean isshowchordsettingset(){
-        SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean show_chords = sPref.getBoolean("show_chords", false);
-        if (show_chords) {
-            return true;
-        }
-        else {
-            return false;
-        }
     }
 
     /*
     Основной метод отображения песни.
      */
-    private void showsong (String selected_song) {
+    private void showSong(String selected_song) {
         DatabaseHelper sql = new DatabaseHelper(getApplicationContext());
-        ShowTextSong(sql.GetSongByName(selected_song));
+        showTextSong(sql.GetSongByName(selected_song));
+    }
+
+    // Method which reads text size from shared preferences and updates song's text size.
+    private void updateTextSize() {
+        for (Integer updatableTextViewsId : updatableTextViewsIds) {
+            TextView tv = (TextView) findViewById(updatableTextViewsId);
+            switch (sp.getString("textSizePref", getResources().getString(R.string.textSizesDefault))) {
+                case "s":
+                    tv.setTextAppearance(this, R.style.TextAppearance_AppCompat_Small);
+                    break;
+                case "m":
+                    tv.setTextAppearance(this, R.style.TextAppearance_AppCompat_Medium);
+                    break;
+                case "l":
+                    tv.setTextAppearance(this, R.style.TextAppearance_AppCompat_Large);
+                    break;
+            }
         }
+    }
+
+    private void setPreviousTextSize() {
+        this.previousTextSize = sp.getString("textSizePref", getResources().getString(R.string.textSizesDefault));
+    }
 }

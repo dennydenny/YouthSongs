@@ -3,4 +3,5 @@
     <item type="id" name="en_name" />
     <item type="id" name="authors" />
     <item type="id" name="main_text" />
+    <item type="id" name="song_number" />
 </resources>

@@ -4,6 +4,7 @@
     <string name="menu_search">Поиск</string>
     <string name="menu_contents">Содержание</string>
     <string name="menu_favorite">Избранное</string>
+    <string name="menu_random_song">Случайная песня</string>
     <string name="menu_remarks">Обозначения</string>
     <string name="menu_about">О программе</string>
     <string name="title_activity_contents">ContentsActivity</string>
@@ -43,4 +44,16 @@
         <item>Причастие</item>
         <item>Церковь</item>
     </string-array>
+    <!-- Text Size -->
+    <string-array name="textSizesTitles" >
+        <item>Маленький</item>
+        <item>Средний</item>
+        <item>Большой</item>
+    </string-array>
+    <string-array name="textSizesValues" >
+        <item>s</item>
+        <item>m</item>
+        <item>l</item>
+    </string-array>
+    <string name="textSizesDefault">m</string>
 </resources>

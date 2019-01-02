@@ -5,4 +5,11 @@
         android:defaultValue="false"
         android:title="@string/setting_chord_title"
         android:summary="@string/setting_chord_summary"/>
+    <ListPreference
+        android:entries="@array/textSizesTitles"
+        android:entryValues="@array/textSizesValues"
+        android:key="textSizePref"
+        android:defaultValue="@string/textSizesDefault"
+        android:summary="Указать размет текста песни"
+        android:title="Размер текста" />
 </PreferenceScreen>
