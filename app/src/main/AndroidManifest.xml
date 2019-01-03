@@ -22,8 +22,6 @@
             android:name=".activity.ContentsActivity"
             android:label="@string/title_activity_contents"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.ContentsbynameActivity" />
-        <activity android:name=".activity.ContentsbythemeActivity" />
         <activity android:name=".activity.AboutActivity" />
         <activity
             android:name=".activity.SearchActivity"

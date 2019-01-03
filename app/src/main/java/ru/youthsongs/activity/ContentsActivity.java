@@ -4,15 +4,25 @@ import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TabHost;
-import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ru.youthsongs.R;
+import ru.youthsongs.fragment.FragmentContentsByNameController;
+import ru.youthsongs.fragment.FragmentContentsByThemeController;
 import ru.youthsongs.util.DatabaseHelper;
+
+;
 
 public class ContentsActivity extends AppCompatActivity {
     LocalActivityManager mLocalActivityManager = new LocalActivityManager(this, false);
@@ -24,28 +34,14 @@ public class ContentsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_contents);
         Toolbar toolbar = (Toolbar) findViewById(R.id.contents_toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
-        //toolbar.setTitle("");
         toolbar.setTitle("Выберите песню");
         setSupportActionBar(toolbar);
 
-        // Setting TABS
-        TabHost tabHost = (TabHost) findViewById(android.R.id.tabhost);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
 
-
-        mLocalActivityManager.dispatchCreate(savedInstanceState);
-        tabHost.setup(mLocalActivityManager);
-
-        TabHost.TabSpec tabSpec;
-
-        tabSpec = tabHost.newTabSpec("tag1");
-        tabSpec.setIndicator("По названию");
-        tabSpec.setContent(new Intent(this, ContentsbynameActivity.class));
-        tabHost.addTab(tabSpec);
-
-        tabSpec = tabHost.newTabSpec("tag2");
-        tabSpec.setIndicator("По темам");
-        tabSpec.setContent(new Intent(this, ContentsbythemeActivity.class));
-        tabHost.addTab(tabSpec);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -111,4 +107,39 @@ public class ContentsActivity extends AppCompatActivity {
 
     }
 
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new FragmentContentsByNameController(), "По названию");
+        adapter.addFragment(new FragmentContentsByThemeController(), "По темам");
+        viewPager.setAdapter(adapter);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
 }

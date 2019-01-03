@@ -1,7 +1,8 @@
 package ru.youthsongs.fragment;
 
-import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -10,10 +11,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import ru.youthsongs.activity.ContentsbythemeActivity;
+import ru.youthsongs.activity.MainActivity;
 import ru.youthsongs.util.DatabaseHelper;
 
-public class Fragment_contents_bytheme_list extends ListFragment {
+public class FragmentContentByThemeList extends ListFragment {
 
     /*
     Fragment that show list of songs, starts with selected first letter.
@@ -47,7 +48,9 @@ public class Fragment_contents_bytheme_list extends ListFragment {
         String selected_song_name = t.getText().toString();
 
         // Pass selected song to MainActivity
-        ((ContentsbythemeActivity) getActivity()).selectsong(selected_song_name);
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.putExtra("selected_song", selected_song_name);
+        startActivity(intent);
     }
 
 }

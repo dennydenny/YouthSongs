@@ -1,7 +1,8 @@
 package ru.youthsongs.fragment;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import ru.youthsongs.R;
 import ru.youthsongs.util.DatabaseHelper;
 
-public class Fragment_contents_byname_alphbet extends Fragment {
+public class FragmentContentsByNameAlphbet extends Fragment {
     /*
     Fragment that show buttons with uniq first letter of every song in database
      */
@@ -42,14 +43,14 @@ public class Fragment_contents_byname_alphbet extends Fragment {
                 String letter = parent.getItemAtPosition(position).toString();
                 Log.i("Grid", "Item is " + letter);
 
-                Fragment_contents_byname_list frag2 = new Fragment_contents_byname_list();
+                FragmentContentsByNameList frag2 = new FragmentContentsByNameList();
 
                 Bundle bundle = new Bundle();
                 bundle.putString("selected_letter", letter);
                 frag2.setArguments(bundle);
 
                 FragmentTransaction ftrans = getFragmentManager().beginTransaction();
-                ftrans.replace(R.id.frgmCont, frag2);
+                ftrans.replace(R.id.fragmFrame, frag2);
                 ftrans.addToBackStack(null);
                 ftrans.commit();
             }

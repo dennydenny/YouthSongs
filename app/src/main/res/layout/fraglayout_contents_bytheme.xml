@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ru.youthsongs.fragment.Fragment_contents_bytheme">
+    tools:context="ru.youthsongs.fragment.FragmentContentsByTheme">
 
     <ExpandableListView
         android:layout_width="match_parent"

@@ -1,8 +1,7 @@
 package ru.youthsongs.fragment;
 
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +18,7 @@ import java.util.Map;
 import ru.youthsongs.R;
 
 
-public class Fragment_contents_bytheme extends Fragment {
+public class FragmentContentsByTheme extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -122,13 +121,13 @@ public class Fragment_contents_bytheme extends Fragment {
                 TextView tv = (TextView) v;
                 String selected_theme = tv.getText().toString();
                 Log.i("Themes", "You select a " + selected_theme);
-                Fragment_contents_bytheme_list frag2 = new Fragment_contents_bytheme_list();
+                FragmentContentByThemeList frag2 = new FragmentContentByThemeList();
 
                 Bundle bundle = new Bundle();
                 bundle.putString("selected_theme", selected_theme);
                 frag2.setArguments(bundle);
 
-                FragmentTransaction ftrans = getFragmentManager().beginTransaction();
+                android.support.v4.app.FragmentTransaction ftrans = getFragmentManager().beginTransaction();
                 ftrans.replace(R.id.contents_by_theme_frame, frag2);
                 ftrans.addToBackStack(null);
                 ftrans.commit();
