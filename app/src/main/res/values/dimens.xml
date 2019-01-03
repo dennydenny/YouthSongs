@@ -9,4 +9,5 @@
     <dimen name="reader_main_text2">11dp</dimen>
     <dimen name="reader_secondary_text">9sp</dimen>
     <dimen name="reader_menu_margin">10dp</dimen>
+    <dimen name="searchSuggestionPadding">8sp</dimen>
 </resources>

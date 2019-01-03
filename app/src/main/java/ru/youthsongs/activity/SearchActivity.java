@@ -8,16 +8,19 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import net.mskurt.neveremptylistviewlibrary.NeverEmptyListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,10 +30,10 @@ import ru.youthsongs.R;
 import ru.youthsongs.util.DatabaseHelper;
 import ru.youthsongs.util.SearchViewFormatter;
 
-//import android.support.v7.widget.SearchView;
 
 public class SearchActivity extends AppCompatActivity {
 
+    private int easterEggCounter = 0;
 
 
     @Override
@@ -41,7 +44,7 @@ public class SearchActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        ListView search_result = (ListView) findViewById(R.id.search_result_list);
+        NeverEmptyListView search_result = (NeverEmptyListView) findViewById(R.id.search_result_list);
         handleIntent(getIntent());
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +53,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        search_result.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        search_result.getListview().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView t = (TextView) view.findViewById(R.id.item_title);
                 String selected_song_name = t.getText().toString();
@@ -60,9 +63,7 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-        }
+    }
 
 
     @Override
@@ -74,15 +75,30 @@ public class SearchActivity extends AppCompatActivity {
     private void handleIntent(Intent intent) {
 
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            // Hiding search suggestion.
+            TextView searchSuggestion = (TextView) findViewById(R.id.search_suggestion);
+            searchSuggestion.setVisibility(View.GONE);
+
             String query = intent.getStringExtra(SearchManager.QUERY);
             DatabaseHelper sql = new DatabaseHelper(this);
 
-            ListView search_result = (ListView) findViewById(R.id.search_result_list);
-            search_result.setEmptyView(findViewById(R.id.empty_list_item));
+            //ListView search_result = (ListView) findViewById(R.id.search_result_list);
+            //search_result.setEmptyView(findViewById(R.id.empty_list_item));
+
+            NeverEmptyListView search_result = (NeverEmptyListView) findViewById(R.id.search_result_list);
+
+            // Tiny Easter egg
+            search_result.setHolderClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    easterEggCounter++;
+                    tinyEasterEgg();
+                }
+            });
 
             if (query.matches("[0-9]+")) {
                 // Digit input
-                String [] result = sql.GetSongByNumber(Integer.valueOf(query));
+                String[] result = sql.getSongByNumber(Integer.valueOf(query));
                 if (result.length > 0) {
                     ArrayList<Map<String, Object>> data = new ArrayList<Map<String, Object>>(result.length);
                     Map<String, Object> m;
@@ -92,19 +108,20 @@ public class SearchActivity extends AppCompatActivity {
                     data.add(m);
                     SimpleAdapter adapter = new SimpleAdapter(this, data,
                             R.layout.search_result_item,
-                            new String[] {"name", "short_text"},
-                            new int[] {R.id.item_title,
+                            new String[]{"name", "short_text"},
+                            new int[]{R.id.item_title,
                                     R.id.item_subtitle});
                     search_result.setAdapter(adapter);
-                }
-                else {
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, result);
+                } else {
+                    //Create an empty adapter
+                    String[] values={};
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, values);
+                    //Set NeverEmptyListView's adapter
                     search_result.setAdapter(adapter);
                 }
-            }
-            else {
+            } else {
                 // Text input
-                ArrayList<String> result = sql.GetSongsByQuery(query);
+                ArrayList<String> result = sql.getSongsByQuery(query);
                 if (result.size() > 0) {
 
                     ArrayList<Map<String, Object>> data = new ArrayList<Map<String, Object>>(result.size());
@@ -124,9 +141,11 @@ public class SearchActivity extends AppCompatActivity {
                             new int[]{R.id.item_title,
                                     R.id.item_subtitle});
                     search_result.setAdapter(adapter);
-                }
-                else {
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, result);
+                } else {
+                    //Create an empty adapter
+                    String[] values={};
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, values);
+                    //Set NeverEmptyListView's adapter
                     search_result.setAdapter(adapter);
                 }
             }
@@ -141,7 +160,7 @@ public class SearchActivity extends AppCompatActivity {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         //SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
 
-        SearchView searchView =  (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.search));
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.search));
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false);
         searchView.setFocusable(true);
@@ -170,5 +189,21 @@ public class SearchActivity extends AppCompatActivity {
                 .setSearchHintText("Поиск")
                 .format(searchView);
         return true;
+    }
+
+    private void tinyEasterEgg() {
+        if (easterEggCounter == 5) {
+            Log.i("tinyEasterEgg()", "First stage of easter egg was found");
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.searchEasterEggPopup), Toast.LENGTH_LONG).show();
+        }
+        if (easterEggCounter == 10) {
+            Log.i("tinyEasterEgg()", "Second stage of easter egg was found");
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.searchEasterEggPopup2), Toast.LENGTH_LONG).show();
+        }
+        if (easterEggCounter == 15) {
+            Log.i("tinyEasterEgg()", "Last stage of easter egg was found. He is crazy.");
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.searchEasterEggPopup3), Toast.LENGTH_LONG).show();
+            easterEggCounter = 0;
+        }
     }
 }

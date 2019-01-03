@@ -19,19 +19,14 @@
         android:orderInCategory="3"
         app:showAsAction="never" />
 
-    <item android:id="@+id/menu_favorite"
+    <!--<item android:id="@+id/menu_favorite"
         android:title="@string/menu_favorite"
         android:orderInCategory="3"
         app:showAsAction="never" />
-
+    -->
     <item android:id="@+id/menu_settings"
         android:title="@string/menu_settings"
         android:orderInCategory="4"
-        app:showAsAction="never" />
-
-    <item android:id="@+id/menu_remarks"
-        android:title="@string/menu_remarks"
-        android:orderInCategory="5"
         app:showAsAction="never" />
 
     <item android:id="@+id/menu_about"

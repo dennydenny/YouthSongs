@@ -24,6 +24,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.ContentsbynameActivity" />
         <activity android:name=".activity.ContentsbythemeActivity" />
+        <activity android:name=".activity.AboutActivity" />
         <activity
             android:name=".activity.SearchActivity"
             android:launchMode="singleTop"

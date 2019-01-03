@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.youthsongs.R;
-import ru.youthsongs.Song;
+import ru.youthsongs.entity.Song;
 import ru.youthsongs.util.DatabaseHelper;
 import ru.youthsongs.util.Formatter;
 
@@ -39,21 +39,26 @@ public class MainActivity extends AppCompatActivity {
     // List of ids of text views which should meet shared preferences.
     private List<Integer> updatableTextViewsIds = new ArrayList<>();
     private DatabaseHelper sql;
+    private SharedPreferences.OnSharedPreferenceChangeListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sp = PreferenceManager.getDefaultSharedPreferences(this);
+        // Init preferences listener to handle changes.
+        initPreferencesListener();
+
         setPreviousTextSize();
         setContentView(R.layout.activity_main);
-        Log.d("onCreate", "onCreate first song is " + selected_song);
 
-        // Указание держать экран включенным на всё время работы активити.
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        if (sp.getBoolean("keepScreenOn", false)) {
+            // Указание держать экран включенным на всё время работы активити.
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
 
         // Выбираем случайную песню.
         sql = new DatabaseHelper(this);
-        selected_song = sql.GetRundomSongName();
+        selected_song = sql.getRandomSongName();
 
         // Проверяем, были ли отправлена какая-либо песня в эту активити.
         if (getIntent().getStringExtra("selected_song") != null) {
@@ -82,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.menu_about:
-                Toast.makeText(this, "Меню!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, AboutActivity.class));
                 break;
             case R.id.menu_contents:
                 startActivity(new Intent(MainActivity.this, ContentsActivity.class));
@@ -96,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_random_song:
                 // Smells bad.
                 Intent intent = new Intent(this, MainActivity.class);
-                intent.putExtra("selected_song", sql.GetRundomSongName());
+                intent.putExtra("selected_song", sql.getRandomSongName());
                 startActivity(intent);
                 break;
         }
@@ -231,16 +236,14 @@ public class MainActivity extends AppCompatActivity {
             en_name.setTextSize(getResources().getDimension(R.dimen.reader_secondary_text));
             en_name.setTypeface(type);
             en_name.setTypeface(en_name.getTypeface(), Typeface.BOLD_ITALIC);
-            en_name.setText(songs_en_name);
+            en_name.setText(Formatter.makeTextBold(songs_en_name));
 
             // Добавляем в UI.
             ll.addView(en_name);
         }
 
         if (!songs_authors.isEmpty()) {
-            Log.i("Formatter", " songs_authors is " + songs_authors);
-
-            // Formatting authtor's info
+            // Formatting authtors info
             TextView authors = new TextView(this);
             authors.setId(R.id.authors);
             this.updatableTextViewsIds.add(R.id.authors);
@@ -264,11 +267,12 @@ public class MainActivity extends AppCompatActivity {
      */
     private void showSong(String selected_song) {
         DatabaseHelper sql = new DatabaseHelper(getApplicationContext());
-        showTextSong(sql.GetSongByName(selected_song));
+        showTextSong(sql.getSongByName(selected_song));
     }
 
     // Method which reads text size from shared preferences and updates song's text size.
     private void updateTextSize() {
+
         for (Integer updatableTextViewsId : updatableTextViewsIds) {
             TextView tv = (TextView) findViewById(updatableTextViewsId);
             switch (sp.getString("textSizePref", getResources().getString(R.string.textSizesDefault))) {
@@ -288,4 +292,22 @@ public class MainActivity extends AppCompatActivity {
     private void setPreviousTextSize() {
         this.previousTextSize = sp.getString("textSizePref", getResources().getString(R.string.textSizesDefault));
     }
+
+    private void initPreferencesListener() {
+        listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+                switch (key) {
+                    case "keepScreenOn":
+                        if (prefs.getBoolean(key, false)) {
+                            // Указание держать экран включенным на всё время работы активити.
+                            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                        }
+                        break;
+                }
+            }
+        };
+
+        sp.registerOnSharedPreferenceChangeListener(listener);
+    }
+
 }

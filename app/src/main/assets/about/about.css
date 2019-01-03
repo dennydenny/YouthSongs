@@ -1,0 +1,24 @@
+#top {
+ padding:5px;
+}
+#developer {
+  padding:25px
+}
+#donate {
+  padding:25px
+}
+#feedback {
+  padding:25px
+}
+a {
+  font-family:Helvetica, sans-serif;
+  font-size:1.3em;
+}
+b {
+  font-family:Helvetica, sans-serif;
+  font-size:1.3em;
+}
+img {
+  width: 70%;
+  height: auto;
+}

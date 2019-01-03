@@ -12,9 +12,11 @@ import android.widget.TabHost;
 import android.widget.Toast;
 
 import ru.youthsongs.R;
+import ru.youthsongs.util.DatabaseHelper;
 
 public class ContentsActivity extends AppCompatActivity {
     LocalActivityManager mLocalActivityManager = new LocalActivityManager(this, false);
+    private DatabaseHelper sql;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +62,20 @@ public class ContentsActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.menu_about:
-                Toast.makeText(this, "Хорошее приложение", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, AboutActivity.class));
                 break;
             case R.id.menu_search:
                 startActivity(new Intent(this, SearchActivity.class));
                 break;
             case R.id.menu_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
+                break;
+            case R.id.menu_random_song:
+                // Smells bad.
+                Intent intent = new Intent(this, MainActivity.class);
+                if (sql == null) sql = new DatabaseHelper(this);
+                intent.putExtra("selected_song", sql.getRandomSongName());
+                startActivity(intent);
                 break;
         }
 

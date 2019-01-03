@@ -7,4 +7,9 @@
         android:defaultValue="@string/textSizesDefault"
         android:summary="Указать размет текста песни"
         android:title="Размер текста" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="keepScreenOn"
+        android:summary="Если опция включена, то экран будет активен всё время работы приложения."
+        android:title="Не выключать экран" />
 </PreferenceScreen>

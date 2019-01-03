@@ -27,7 +27,7 @@ public class Fragment_contents_byname_alphbet extends Fragment {
         View v = inflater.inflate(R.layout.fraglayout_contents_byname, null);
 
         final DatabaseHelper sql = new DatabaseHelper(getActivity().getApplicationContext());
-        ArrayList<String> songsfirstletter = sql.GetSongsFirstLetter();
+        ArrayList<String> songsfirstletter = sql.getSongsFirstLetter();
 
         GridView gvMain = (GridView) v.findViewById(R.id.grid_songs_byname);
         ArrayAdapter<String> adapter;

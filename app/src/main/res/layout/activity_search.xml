@@ -16,7 +16,7 @@
 
         </android.support.v7.widget.Toolbar>
 
-    <ListView
+    <!--<ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/search_result_list"
@@ -29,7 +29,32 @@
         android:layout_centerInParent="true"
         android:layout_below="@+id/search_toolbar"
         android:text="Ничего не найдено" >
-    </TextView>
+    </TextView>-->
+
+        <!--https://github.com/mskurt/NeverEmptyListView-->
+        <net.mskurt.neveremptylistviewlibrary.NeverEmptyListView
+            xmlns:custom="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/search_result_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/search_toolbar"
+            custom:holderTextTopMargin="20dp"
+            custom:holderTextFontSize="9sp"
+            custom:holderTextColor="#9e9e9e"
+            custom:holderText="@string/searchEmptyResult"
+            custom:holderImageBackground="@drawable/ic_sentiment_dissatisfied_grey_800_24dp"/>
+
+    <TextView
+        android:id="@+id/search_suggestion"
+        android:gravity="center"
+        android:padding="@dimen/searchSuggestionPadding"
+        android:layout_below="@+id/search_toolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:text="@string/searchSuggestion"
+        android:typeface="sans"
+        />
 
 
 </RelativeLayout>

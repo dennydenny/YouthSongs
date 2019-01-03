@@ -29,7 +29,7 @@ public class Fragment_contents_bytheme_list extends ListFragment {
         long timeout= System.currentTimeMillis();
 
         DatabaseHelper sql = new DatabaseHelper(getActivity());
-        ArrayList <String> songsbytheme = sql.GetSongsByTheme(selected_theme);
+        ArrayList <String> songsbytheme = sql.getSongsByTheme(selected_theme);
 
         timeout = System.currentTimeMillis() - timeout;
 
