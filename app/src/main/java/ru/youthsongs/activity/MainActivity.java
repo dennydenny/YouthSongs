@@ -55,14 +55,16 @@ public class MainActivity extends AppCompatActivity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
 
-        // Выбираем случайную песню.
-        sql = new DatabaseHelper(this);
-        selected_song = sql.getRandomSongName();
+        if (sp.contains("lastSelectedSong")) selected_song = sp.getString("lastSelectedSong", null);
 
         // Проверяем, были ли отправлена какая-либо песня в эту активити.
         if (getIntent().getStringExtra("selected_song") != null) {
             selected_song = getIntent().getStringExtra("selected_song");
         }
+
+        // Выбираем случайную песню.
+        sql = new DatabaseHelper(this);
+        if (selected_song == null) selected_song = sql.getRandomSongName();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.reader_toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
@@ -70,8 +72,17 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Log.d("onCreate", "onCreate second song is " + selected_song);
 
+        // Saving current song to be able open it once app will be closed.
+        saveLastSelectedSong();
+
         // Отображаем песню.
         showSong(selected_song);
+    }
+
+    private void saveLastSelectedSong() {
+        SharedPreferences.Editor editor1 = sp.edit();
+        editor1.putString("lastSelectedSong",selected_song);
+        editor1.commit();
     }
 
     @Override
