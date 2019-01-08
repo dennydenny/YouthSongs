@@ -83,6 +83,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Отображаем песню.
         showSong(selected_song);
+
+        // Send statistics if new song opens
+        if (!this.previousSelectedSong.equals(selected_song)) {
+            this.trackSongOpened(selected_song);
+        }
+        // Setting previous song to prevent stats duplication in future.
+        this.previousSelectedSong = selected_song;
     }
 
     private void saveLastSelectedSong() {
@@ -277,12 +284,6 @@ public class MainActivity extends AppCompatActivity {
         Log.d("showSong", "Opening song " + selected_song);
         DatabaseHelper sql = new DatabaseHelper(getApplicationContext());
         Song song = sql.getSongByName(selected_song);
-        // Send statistics if new song opens
-        if (!this.previousSelectedSong.equals(selected_song)) {
-            this.trackSongOpened(song.getNumber());
-        }
-        // Setting previous song to prevent stats duplication in future.
-        this.previousSelectedSong = selected_song;
         showTextSong(song);
     }
 
