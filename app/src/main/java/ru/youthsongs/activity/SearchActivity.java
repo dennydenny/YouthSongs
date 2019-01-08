@@ -29,6 +29,7 @@ import java.util.Map;
 
 import ru.youthsongs.R;
 import ru.youthsongs.entity.Song;
+import ru.youthsongs.service.FlurryTrackingService;
 import ru.youthsongs.util.DatabaseHelper;
 import ru.youthsongs.util.SearchViewFormatter;
 
@@ -220,14 +221,17 @@ public class SearchActivity extends AppCompatActivity {
         if (easterEggCounter == 5) {
             Log.i("tinyEasterEgg()", "First stage of easter egg was found");
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.searchEasterEggPopup), Toast.LENGTH_LONG).show();
+            FlurryTrackingService.trackEasterEggFound(1);
         }
         if (easterEggCounter == 10) {
             Log.i("tinyEasterEgg()", "Second stage of easter egg was found");
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.searchEasterEggPopup2), Toast.LENGTH_LONG).show();
+            FlurryTrackingService.trackEasterEggFound(2);
         }
         if (easterEggCounter == 15) {
             Log.i("tinyEasterEgg()", "Last stage of easter egg was found. He is crazy.");
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.searchEasterEggPopup3), Toast.LENGTH_LONG).show();
+            FlurryTrackingService.trackEasterEggFound(3);
             easterEggCounter = 0;
         }
     }

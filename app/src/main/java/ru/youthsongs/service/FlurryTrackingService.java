@@ -21,4 +21,17 @@ public class FlurryTrackingService {
             }
         }).start();
     }
+
+    public static synchronized void trackEasterEggFound(final int stage) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.i("tracking", "Sending Easter_Egg_Found event to flurry... Stage is " + stage);
+                Map<String, String> eventParams = new HashMap<>();
+                eventParams.put("Stage", String.valueOf(stage));
+
+                FlurryAgent.logEvent("Easter_Egg_Found", eventParams);
+            }
+        }).start();
+    }
 }
