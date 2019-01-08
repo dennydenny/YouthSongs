@@ -1,12 +1,20 @@
 package ru.youthsongs.activity;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import ru.youthsongs.BuildConfig;
 
 import ru.youthsongs.R;
 
@@ -28,18 +36,19 @@ public class AboutActivity extends AppCompatActivity {
             }
         });
 
-        WebView webView = (WebView) findViewById(R.id.about_webview);
-        webView.setVerticalScrollBarEnabled(true);
+        // Setting a cover image
+        ImageView coverImage = (ImageView) findViewById(R.id.coverImage);
+        try (InputStream ims = getResources().getAssets().open("cover.jpg")) {
+            // load image as Drawable
+            Drawable d = Drawable.createFromStream(ims, null);
+            // set image to ImageView
+            coverImage.setImageDrawable(d);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        // Get the Android assets folder path
-        String folderPath = "file:android_asset/about/";
-
-        // Get the HTML file name
-        String fileName = "About.html";
-
-        // Get the exact file location
-        String file = folderPath + fileName;
-        //webView.loadDataWithBaseURL(null, file, "text/html", "utf-8", null);
-        webView.loadUrl(file);
+        // Setting a version
+        TextView versionTv = (TextView) findViewById(R.id.aboutVersion);
+        versionTv.setText("Версия - " + BuildConfig.VERSION_NAME);
     }
 }

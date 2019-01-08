@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Youth Songs</string>
+    <string name="app_name">Сборник</string>
     <string name="menu_settings">Настройки</string>
     <string name="menu_search">Поиск</string>
     <string name="menu_contents">Содержание</string>
@@ -10,7 +10,6 @@
     <string name="title_activity_contents">ContentsActivity</string>
     <string name="search_hint">Поиск</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string-array name="KeyWordsInAuthtorsText">
         <item>Слова и музыка:</item>

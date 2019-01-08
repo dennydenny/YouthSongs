@@ -24,9 +24,11 @@ import net.mskurt.neveremptylistviewlibrary.NeverEmptyListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import ru.youthsongs.R;
+import ru.youthsongs.entity.Song;
 import ru.youthsongs.util.DatabaseHelper;
 import ru.youthsongs.util.SearchViewFormatter;
 
@@ -34,7 +36,6 @@ import ru.youthsongs.util.SearchViewFormatter;
 public class SearchActivity extends AppCompatActivity {
 
     private int easterEggCounter = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,13 +99,13 @@ public class SearchActivity extends AppCompatActivity {
 
             if (query.matches("[0-9]+")) {
                 // Digit input
-                String[] result = sql.getSongByNumber(Integer.valueOf(query));
-                if (result.length > 0) {
-                    ArrayList<Map<String, Object>> data = new ArrayList<Map<String, Object>>(result.length);
+                Song resultSong = sql.getSongByNumber(Integer.valueOf(query));
+                if (resultSong != null) {
+                    ArrayList<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
                     Map<String, Object> m;
-                    m = new HashMap<String, Object>();
-                    m.put("name", result[0]);
-                    m.put("short_text", result[1]);
+                    m = new HashMap<>();
+                    m.put("name", resultSong.getName());
+                    m.put("short_text", resultSong.getText());
                     data.add(m);
                     SimpleAdapter adapter = new SimpleAdapter(this, data,
                             R.layout.search_result_item,
@@ -113,25 +114,53 @@ public class SearchActivity extends AppCompatActivity {
                                     R.id.item_subtitle});
                     search_result.setAdapter(adapter);
                 } else {
-                    //Create an empty adapter
-                    String[] values={};
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, values);
-                    //Set NeverEmptyListView's adapter
-                    search_result.setAdapter(adapter);
+                    setEmptyAdapter(search_result);
                 }
-            } else {
+            }
+            else if (query.matches("^[a-zA-Z ]+$")) {
+                // English text
+                List<Song> result = sql.getEnSongsByQuery(query);
+                if (result.size() > 0) {
+
+                    ArrayList<Map<String, Object>> data = new ArrayList<>(result.size());
+                    HashMap<String, Object> m;
+                    StringBuilder sb = new StringBuilder();
+
+                    for (int i = 0; result.size() > i; i++) {
+                        m = new HashMap<>();
+                        Song song = result.get(i);
+                        // Russian_name (English name)
+                        sb.append(song.getName()).append(" (").append(song.getEnName()).append(")");
+                        m.put("name", sb.toString());
+                        m.put("short_text", song.getText());
+                        data.add(m);
+                        // Clearing StringBuilder
+                        sb.setLength(0);
+                    }
+
+                    SimpleAdapter adapter = new SimpleAdapter(this, data,
+                            R.layout.search_result_item,
+                            new String[]{"name", "short_text"},
+                            new int[]{R.id.item_title,
+                                    R.id.item_subtitle});
+                    search_result.setAdapter(adapter);
+                } else {
+                    setEmptyAdapter(search_result);
+                }
+            }
+            else {
                 // Text input
-                ArrayList<String> result = sql.getSongsByQuery(query);
+                ArrayList<Song> result = sql.getSongsByQuery(query);
                 if (result.size() > 0) {
 
                     ArrayList<Map<String, Object>> data = new ArrayList<Map<String, Object>>(result.size());
                     HashMap<String, Object> m;
 
-                    for (int i = 0; result.size() > i; i += 2) {
-                        int j = i + 1;
-                        m = new HashMap<String, Object>();
-                        m.put("name", result.get(i));
-                        m.put("short_text", result.get(j));
+                    for (int i = 0; result.size() > i; i++) {
+                        m = new HashMap<>();
+                        Song song = result.get(i);
+                        m.put("name", song.getName());
+                        m.put("short_text", song.getText());
                         data.add(m);
                     }
 
@@ -142,11 +171,7 @@ public class SearchActivity extends AppCompatActivity {
                                     R.id.item_subtitle});
                     search_result.setAdapter(adapter);
                 } else {
-                    //Create an empty adapter
-                    String[] values={};
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, values);
-                    //Set NeverEmptyListView's adapter
-                    search_result.setAdapter(adapter);
+                    setEmptyAdapter(search_result);
                 }
             }
         }
@@ -205,5 +230,12 @@ public class SearchActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.searchEasterEggPopup3), Toast.LENGTH_LONG).show();
             easterEggCounter = 0;
         }
+    }
+
+    private void setEmptyAdapter(NeverEmptyListView view) {
+        String[] values={};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        //Set NeverEmptyListView's adapter
+        view.setAdapter(adapter);
     }
 }

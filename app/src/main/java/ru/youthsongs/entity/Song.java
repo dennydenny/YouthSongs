@@ -20,86 +20,64 @@ public class Song {
     private String __altName;
 
     // Геттер/сеттер для названия песни.
-    public String getName()
-    {
+    public String getName() {
         return _name;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         if (name != null) {
             _name = name;
-        }
-        else
-        {
+        } else {
             throw new IllegalArgumentException();
         }
     }
 
     // Геттер/сеттер для текста песни.
-    public String getText()
-    {
-        return  _text;
+    public String getText() {
+        return _text;
     }
 
-    public void setText(String text)
-    {
+    public void setText(String text) {
         if (text != null) {
             _text = text;
-        }
-        else
-        {
+        } else {
             throw new IllegalArgumentException();
         }
     }
 
     // Геттер/сеттер для номера песни.
-    public String getNumber()
-    {
+    public String getNumber() {
         return _number;
     }
 
-    public void setNumber(String number)
-    {
-        if (number != null) {
-            _number = number;
-        }
-        else
-        {
-            throw new IllegalArgumentException();
-        }
+    public void setNumber(String number) {
+        _number = number;
     }
 
     // Геттер/сеттер для английского названия песни.
-    public String getEnName()
-    {
+    public String getEnName() {
         return _enName;
     }
 
-    public void setEnName(String enName)
-    {
-            _enName = enName;
+    public void setEnName(String enName) {
+        _enName = enName;
     }
 
     // Геттер/сеттер для авторов песни.
-    public String getAuthors()
-    {
+    public String getAuthors() {
         return _authors;
     }
 
-    public void setAuthors(String Authors)
-    {
-            _authors = Authors;
+    public void setAuthors(String Authors) {
+        _authors = Authors;
     }
 
     // Геттер/сеттер для альт. названия песни.
-    public String getAltName()
-    {
+    public String getAltName() {
         return __altName;
     }
 
-    public void setAltName (String altName)
-    {
-            __altName = altName;
+    public void setAltName(String altName) {
+        __altName = altName;
     }
 }

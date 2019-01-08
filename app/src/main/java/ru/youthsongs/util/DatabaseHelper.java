@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import ru.youthsongs.entity.Song;
@@ -29,27 +30,27 @@ public class DatabaseHelper extends SQLiteAssetHelper {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 
-        public String [] getSongByNumber(int num) {
+        public Song getSongByNumber(int num) {
 
             SQLiteDatabase db = getReadableDatabase();
 
-            String sqlquery = "SELECT name, substr (text, 1, 40) as text FROM songs WHERE num = " + num;
+            String sqlquery = "SELECT name, REPLACE(substr (text, 1, 40), '1. ', '') as text FROM songs WHERE num = " + num;
 
             Cursor c = db.rawQuery(sqlquery, null);
             c.moveToFirst();
 
+            Song song = new Song();
             String s_name;
             String s_text;
 
             if (c.getCount() == 0) {
-                String [] empty = {};
-                return empty;
+                song = null;
+                return song;
             }
-            s_name = c.getString(c.getColumnIndex(songs_name));
-            s_text = c.getString(c.getColumnIndex(songs_text));
-            String [] answer = {s_name, s_text};
+            song.setName(c.getString(c.getColumnIndex(songs_name)));
+            song.setText(c.getString(c.getColumnIndex(songs_text)));;
             db.close();
-            return answer;
+            return song;
         }
 
         /*
@@ -132,7 +133,7 @@ public class DatabaseHelper extends SQLiteAssetHelper {
         }
 
         // Возвращает список названий песен, содержащих данных из входной строки.
-        public ArrayList<String> getSongsByQuery(String query) {
+        public ArrayList<Song> getSongsByQuery(String query) {
             SQLiteDatabase db = getReadableDatabase();
 
             // Приводим регистр.
@@ -140,17 +141,56 @@ public class DatabaseHelper extends SQLiteAssetHelper {
             String queryUp = Character.toString(queryLow.charAt(0)).toUpperCase()+queryLow.substring(1);
             StringBuilder sqlquery = new StringBuilder();
 
-            sqlquery.append("SELECT DISTINCT name, substr (text, 1, 40) as short_text FROM songs WHERE text LIKE ")
-                    .append("'%").append(queryLow).append("%'").append(" OR name LIKE '%").append(queryLow).append("%' OR")
-                    .append(" text LIKE '%").append(queryUp).append("%' OR name LIKE '%").append(queryUp).append("%'");
-            Log.i("DB", "Query is "+ sqlquery.toString());
+            /*
+            SELECT DISTINCT name, substr (text, 1, 40) as short_text
+            FROM songs
+            WHERE text LIKE '%слово%' OR name LIKE '%слово%' OR text LIKE '%Слово%' OR name LIKE '%Слово%'
+             */
+            sqlquery.append("SELECT DISTINCT name, REPLACE(substr (text, 1, 40), '1. ', '') as short_text FROM songs WHERE text LIKE ")
+                    .append("'%").append(queryLow).append("%' OR name LIKE '%").append(queryLow).append("%' OR")
+                    .append(" text LIKE '%").append(queryUp).append("%' OR name LIKE '%").append(queryUp).append("%'")
+                    .append(" ORDER by name");
+            Log.i("DB - getSongsByQuery", "Query is "+ sqlquery.toString());
             Cursor c = db.rawQuery(sqlquery.toString(), null);
-            ArrayList<String> result = new ArrayList<String>();
+            ArrayList<Song> result = new ArrayList<>();
             while (c.moveToNext()){
-                String name = c.getString(c.getColumnIndex("name"));
-                String short_text = c.getString(c.getColumnIndex("short_text"));
-                result.add(name);
-                result.add(short_text);
+                Song song = new Song();
+                song.setName(c.getString(c.getColumnIndex("name")));
+                song.setText(c.getString(c.getColumnIndex("short_text")));
+                result.add(song);
+            }
+            Log.i("DB", "Result size is "+ result.size());
+            db.close();
+            return result;
+        }
+
+        public List<Song> getEnSongsByQuery(String query) {
+            SQLiteDatabase db = getReadableDatabase();
+
+            // Приводим регистр.
+            String queryLow = query.toLowerCase();
+            String queryUp = Character.toString(queryLow.charAt(0)).toUpperCase()+queryLow.substring(1);
+            StringBuilder sqlquery = new StringBuilder();
+
+            /*
+            SELECT DISTINCT name, en_name, REPLACE(substr (text, 1, 40), '1. ', '') as short_text
+            FROM songs
+            WHERE en_name LIKE '%what%' OR en_name LIKE '%What%'
+            ORDER by en_name
+             */
+            sqlquery.append("SELECT DISTINCT name, en_name, REPLACE(substr (text, 1, 40), '1. ', '') as short_text FROM songs")
+                    .append(" WHERE en_name LIKE '%").append(queryLow).append("%' OR en_name LIKE '%").append(queryUp).append("%'")
+                    .append(" ORDER by en_name");
+
+            Log.i("DB - getEnSongsByQuery", "Query is "+ sqlquery.toString());
+            Cursor c = db.rawQuery(sqlquery.toString(), null);
+            ArrayList<Song> result = new ArrayList<>();
+            while (c.moveToNext()){
+                Song song = new Song();
+                song.setName(c.getString(c.getColumnIndex("name")));
+                song.setEnName(c.getString(c.getColumnIndex("en_name")));
+                song.setText(c.getString(c.getColumnIndex("short_text")));
+                result.add(song);
             }
             Log.i("DB", "Result size is "+ result.size());
             db.close();
@@ -167,10 +207,9 @@ public class DatabaseHelper extends SQLiteAssetHelper {
             Random rn = new Random();
             int rundom_song = rn.nextInt(max) + 1;
 
-            String [] temp_result = getSongByNumber(rundom_song);
-            String result = temp_result[0];
+            Song tempSong = getSongByNumber(rundom_song);
             db.close();
-            return result;
+            return tempSong.getName();
         }
 
         public ArrayList<String> getSongsByTheme(String theme) {

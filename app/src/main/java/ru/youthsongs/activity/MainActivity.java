@@ -1,11 +1,15 @@
 package ru.youthsongs.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
@@ -26,6 +30,7 @@ import java.util.List;
 
 import ru.youthsongs.R;
 import ru.youthsongs.entity.Song;
+import ru.youthsongs.service.FlurryTrackingService;
 import ru.youthsongs.util.DatabaseHelper;
 import ru.youthsongs.util.Formatter;
 
@@ -33,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Название песни, выбранной в данный момент.
     String selected_song;
+    private String previousSelectedSong = "dummy";
     private SharedPreferences sp;
     private String previousTextSize;
     // List of ids of text views which should meet shared preferences.
@@ -128,22 +134,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-    }
-
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("selected_song", selected_song);
-        Log.d("onSaveInstanceState", "onSaveInstanceState song is " + selected_song);
     }
 
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         selected_song = savedInstanceState.getString("selected_song");
-        Log.d("onRestoreInstanceState", "onRestoreInstanceState song is " + selected_song);
-        //showSong(selected_song);
     }
 
     public void showTextSong(Song song) {
@@ -276,8 +274,16 @@ public class MainActivity extends AppCompatActivity {
     Основной метод отображения песни.
      */
     private void showSong(String selected_song) {
+        Log.d("showSong", "Opening song " + selected_song);
         DatabaseHelper sql = new DatabaseHelper(getApplicationContext());
-        showTextSong(sql.getSongByName(selected_song));
+        Song song = sql.getSongByName(selected_song);
+        // Send statistics if new song opens
+        if (!this.previousSelectedSong.equals(selected_song)) {
+            this.trackSongOpened(song.getNumber());
+        }
+        // Setting previous song to prevent stats duplication in future.
+        this.previousSelectedSong = selected_song;
+        showTextSong(song);
     }
 
     // Method which reads text size from shared preferences and updates song's text size.
@@ -320,4 +326,43 @@ public class MainActivity extends AppCompatActivity {
         sp.registerOnSharedPreferenceChangeListener(listener);
     }
 
+    // Wrapper under FlurryTrackingService.trackSongOpened
+    private void trackSongOpened(final String songNumber) {
+        // Checking internet permissions.
+        if (ContextCompat.checkSelfPermission( this, Manifest.permission.INTERNET ) != PackageManager.PERMISSION_GRANTED) {
+            // If internet is not granted we will ask about it.
+            Log.d("tracking", "WAT, we have no internet permission! Requesting...");
+            ActivityCompat.requestPermissions(this,
+                    new String[] {Manifest.permission.INTERNET},
+                    0);
+        }
+        else {
+            Log.d("tracking", "Good, we already have internet permission.");
+            FlurryTrackingService.trackSongOpened(songNumber);
+        }
+    }
+
+    // Callback implementation of request permissions.
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 0: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("RequestPermissions", "Good, permissions has been granted.");
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+                    Log.d("RequestPermissions", "Damn, permissions has not been granted :(");
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
+    }
 }

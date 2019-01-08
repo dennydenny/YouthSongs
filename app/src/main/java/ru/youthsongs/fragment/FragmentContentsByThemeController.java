@@ -19,7 +19,6 @@ public class FragmentContentsByThemeController extends Fragment {
 
         FragmentTransaction ftrans = getFragmentManager().beginTransaction();
         ftrans.add(R.id.contents_by_theme_frame, frag2);
-        ftrans.addToBackStack(null);
         ftrans.commit();
         return v;
     }

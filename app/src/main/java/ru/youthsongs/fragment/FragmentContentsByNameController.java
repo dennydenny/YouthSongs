@@ -19,7 +19,6 @@ public class FragmentContentsByNameController extends Fragment {
 
         FragmentTransaction ftrans = getFragmentManager().beginTransaction();
         ftrans.add(R.id.fragmFrame, frag2);
-        ftrans.addToBackStack(null);
         ftrans.commit();
         return v;
     }
