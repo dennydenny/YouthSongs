@@ -59,6 +59,12 @@ public class SearchActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView t = (TextView) view.findViewById(R.id.item_title);
                 String selected_song_name = t.getText().toString();
+                // Following block need for song with english names, because selected_song_name will be like 'Скрой меня (Still)'
+                if (selected_song_name.contains("(")) {
+                    // Remove english part.
+                    int englishStart = selected_song_name.indexOf("(");
+                    selected_song_name = selected_song_name.substring(0, englishStart - 1).trim();
+                }
 
                 Intent intent = new Intent(SearchActivity.this, MainActivity.class);
                 intent.putExtra("selected_song", selected_song_name);
