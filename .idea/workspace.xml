@@ -6,7 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="still" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="tracking" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
@@ -17,10 +17,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e683078-f833-4f32-87f6-3b9e4f9ab7a5" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/service/SongService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/service/SongServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/SearchSortingUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/SongNameComparator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/SearchActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/SearchActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/DatabaseHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/DatabaseHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/MyApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/MyApplication.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -78,8 +81,8 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="285" column="9" selection-start-line="285" selection-start-column="9" selection-end-line="285" selection-end-column="9" />
+            <state relative-caret-position="17">
+              <caret line="278" column="23" selection-start-line="278" selection-start-column="20" selection-end-line="278" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#onOptionsItemSelected#0;class#MainActivity#0" />
@@ -94,11 +97,64 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DatabaseHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/DatabaseHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="15" column="53" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="53" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SearchActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/SearchActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="66" column="71" lean-forward="true" selection-start-line="66" selection-start-column="71" selection-end-line="66" selection-end-column="71" />
+              <folding>
+                <element signature="e#1756#1898#0" expanded="true" />
+                <element signature="e#1897#1898#0" expanded="true" />
+                <element signature="e#1961#2876#0" expanded="true" />
+                <element signature="e#2875#2876#0" expanded="true" />
+                <element signature="method#onNewIntent#0;class#SearchActivity#0" />
+                <element signature="e#3797#4006#0" expanded="true" />
+                <element signature="e#4005#4006#0" expanded="true" />
+                <element signature="e#4276#4297#0" expanded="true" />
+                <element signature="e#6809#6830#0" expanded="true" />
+                <element signature="method#onCreateOptionsMenu#0;class#SearchActivity#0" />
+                <element signature="method#tinyEasterEgg#0;class#SearchActivity#0" />
+                <element signature="e#9920#9975#0" expanded="true" />
+                <element signature="e#10240#10296#0" expanded="true" />
+                <element signature="e#10573#10629#0" expanded="true" />
+                <element signature="method#setEmptyAdapter#0;class#SearchActivity#0" />
+                <element signature="e#10912#10920#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
-              <caret line="9" column="27" lean-forward="true" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
+              <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SearchSortingUtil.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/SearchSortingUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-226">
+              <caret line="48" column="21" selection-start-line="48" selection-start-column="21" selection-end-line="48" selection-end-column="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#sortByValue#0;class#SearchSortingUtil#0" />
+                <element signature="e#1237#1263#0" expanded="true" />
+                <element signature="e#1351#1612#0" expanded="true" />
+                <element signature="e#1611#1612#0" expanded="true" />
+                <element signature="e#1868#1883#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -109,15 +165,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="layoutResourceFile_vertical" />
-        <option value="Class" />
         <option value="resourceFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>main_text</find>
-      <find>R.id.main_text</find>
       <find>putEx</find>
       <find>show_chords</find>
       <find>setting_chord</find>
@@ -146,6 +200,8 @@
       <find>backg</find>
       <find>backgroundCol</find>
       <find>Sending Song_Opened</find>
+      <find>getSongsByQuery</find>
+      <find>sql</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2410,9 +2466,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/DatabaseHelper.java" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/ids.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/contents_menu.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/xml/settings.xml" />
@@ -2443,7 +2496,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/fragment/FragmentContentsByThemeController.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/SearchViewFormatter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/entity/Song.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/DatabaseHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/assets/about/About.html" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/fragment/SettingsFragment.java" />
@@ -2456,9 +2508,15 @@
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/service/FlurryTrackingService.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/DatabaseHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/service/SongService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/SongNameComparator.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/service/SongServiceImpl.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/MapUtil.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/SearchSortingUtil.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/MyApplication.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/SearchActivity.java" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
       </list>
     </option>
   </component>
@@ -2490,7 +2548,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2524,6 +2581,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2829,7 +2887,14 @@
       <option name="project" value="LOCAL" />
       <updated>1546975495477</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Fixed error with english songs + implementer flurry exception tracking.">
+      <created>1547059042772</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1547059042772</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2843,29 +2908,29 @@
       <window_info id="Build Variants" order="2" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="right" id="Preview" order="3" weight="0.3295302" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3091168" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32905984" />
       <window_info anchor="bottom" id="Logcat" order="7" visible="true" weight="0.45441595" />
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6370757" visible="true" weight="0.24966443" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.63185376" visible="true" weight="0.24966443" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.25356126" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32905984" />
       <window_info anchor="right" id="Gradle" order="3" weight="0.21879195" />
-      <window_info id="Structure" order="1" sideWeight="0.36292428" side_tool="true" visible="true" weight="0.24966443" />
+      <window_info id="Structure" order="1" sideWeight="0.3681462" side_tool="true" visible="true" weight="0.24966443" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3988604" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Preview" order="3" weight="0.3295302" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32905984" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -2884,7 +2949,8 @@
     <MESSAGE value="Version up" />
     <MESSAGE value="Implemented easter egg stats writing." />
     <MESSAGE value="Add version tracking. Removed unused files." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add version tracking. Removed unused files." />
+    <MESSAGE value="Fixed error with english songs + implementer flurry exception tracking." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed error with english songs + implementer flurry exception tracking." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2906,68 +2972,11 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/build/generated/not_namespaced_r_class_sources/debug/processDebugResources/r/ru/youthsongs/R.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="3214" column="34" selection-start-line="3214" selection-start-column="34" selection-end-line="3214" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/Formatter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="96" column="78" selection-start-line="96" selection-start-column="78" selection-end-line="96" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fraglayout_contents_byname.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_contents_byname.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_contents_bytheme.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/ContentsbythemeActivity.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/fragment/FragmentContentsByTheme.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/ContentsbynameActivity.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/fragment/FragmentContentsByNameList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="57" selection-start-line="18" selection-start-column="57" selection-end-line="18" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/fragment/FragmentContentByThemeList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="52" column="30" selection-start-line="52" selection-start-column="30" selection-end-line="52" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -3024,13 +3033,6 @@
     <entry file="file://$PROJECT_DIR$/local.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/DatabaseHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="26" column="54" selection-start-line="26" selection-start-column="54" selection-end-line="26" selection-end-column="54" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/fragment/SettingsFragment.java">
@@ -3194,28 +3196,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/MyApplication.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/fragment/FragmentContentByThemeList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="33" column="67" selection-start-line="33" selection-start-column="67" selection-end-line="33" selection-end-column="67" />
+        <state relative-caret-position="324">
+          <caret line="32" column="46" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-23/android.jar!/android/database/sqlite/SQLiteDatabase.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-527">
+          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.readystatesoftware.sqliteasset/sqliteassethelper/2.0.1/8062ce3a05743483845f9ef8b9d56123dedb93e9/sqliteassethelper-2.0.1-sources.jar!/com/readystatesoftware/sqliteasset/SQLiteAssetHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="150" column="32" lean-forward="true" selection-start-line="150" selection-start-column="32" selection-end-line="150" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/service/SongService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="52" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
           <folding>
-            <element signature="e#822#1031#0" expanded="true" />
-            <element signature="e#1030#1031#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/SearchActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/SongNameComparator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-907">
-          <caret line="108" column="29" lean-forward="true" selection-start-line="108" selection-start-column="29" selection-end-line="108" selection-end-column="29" />
+        <state relative-caret-position="518">
+          <caret line="39" column="5" lean-forward="true" selection-start-line="12" selection-start-column="4" selection-end-line="39" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#178#179#0" expanded="true" />
+            <element signature="e#202#203#0" expanded="true" />
+            <element signature="e#1077#1078#0" expanded="true" />
+            <element signature="e#1130#1131#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/DatabaseHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="15" column="53" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="53" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="285" column="9" selection-start-line="285" selection-start-column="9" selection-end-line="285" selection-end-column="9" />
+        <state relative-caret-position="17">
+          <caret line="278" column="23" selection-start-line="278" selection-start-column="20" selection-end-line="278" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#onOptionsItemSelected#0;class#MainActivity#0" />
@@ -3229,10 +3265,79 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/MapUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="88" lean-forward="true" selection-start-line="10" selection-start-column="88" selection-end-line="10" selection-end-column="88" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/service/SongServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#375#376#0" expanded="true" />
+            <element signature="e#402#403#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/SearchSortingUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-226">
+          <caret line="48" column="21" selection-start-line="48" selection-start-column="21" selection-end-line="48" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#sortByValue#0;class#SearchSortingUtil#0" />
+            <element signature="e#1237#1263#0" expanded="true" />
+            <element signature="e#1351#1612#0" expanded="true" />
+            <element signature="e#1611#1612#0" expanded="true" />
+            <element signature="e#1868#1883#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/util/MyApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-175">
+          <caret line="10" column="61" selection-start-line="10" selection-start-column="61" selection-end-line="10" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="9" column="27" lean-forward="true" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
+          <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/youthsongs/activity/SearchActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="66" column="71" lean-forward="true" selection-start-line="66" selection-start-column="71" selection-end-line="66" selection-end-column="71" />
+          <folding>
+            <element signature="e#1756#1898#0" expanded="true" />
+            <element signature="e#1897#1898#0" expanded="true" />
+            <element signature="e#1961#2876#0" expanded="true" />
+            <element signature="e#2875#2876#0" expanded="true" />
+            <element signature="method#onNewIntent#0;class#SearchActivity#0" />
+            <element signature="e#3797#4006#0" expanded="true" />
+            <element signature="e#4005#4006#0" expanded="true" />
+            <element signature="e#4276#4297#0" expanded="true" />
+            <element signature="e#6809#6830#0" expanded="true" />
+            <element signature="method#onCreateOptionsMenu#0;class#SearchActivity#0" />
+            <element signature="method#tinyEasterEgg#0;class#SearchActivity#0" />
+            <element signature="e#9920#9975#0" expanded="true" />
+            <element signature="e#10240#10296#0" expanded="true" />
+            <element signature="e#10573#10629#0" expanded="true" />
+            <element signature="method#setEmptyAdapter#0;class#SearchActivity#0" />
+            <element signature="e#10912#10920#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -7,7 +7,7 @@ import com.flurry.android.FlurryAgent;
 
 public class MyApplication extends Application {
 
-    private final String flurryApiKey = "RWNPXJM7B5N4J3RS2J6D";
+    private final String flurryApiKey = "G9R7JY9FTHZWSFTCYFZ8";
     private Thread.UncaughtExceptionHandler priorExceptionHandler = null;
 
     @Override
@@ -31,6 +31,7 @@ public class MyApplication extends Application {
     }
 
     public void handleUncaughtException(Thread thread, Throwable e) {
+        Log.e("handleUncaughtException", "Sending UncaughtException to Flurry...");
         FlurryAgent.onError("UncaughtException", e.getMessage(), e);
     }
 }

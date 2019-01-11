@@ -26,11 +26,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import ru.youthsongs.R;
 import ru.youthsongs.entity.Song;
 import ru.youthsongs.service.FlurryTrackingService;
 import ru.youthsongs.util.DatabaseHelper;
+import ru.youthsongs.util.SearchSortingUtil;
 import ru.youthsongs.util.SearchViewFormatter;
 
 
@@ -123,8 +125,7 @@ public class SearchActivity extends AppCompatActivity {
                 } else {
                     setEmptyAdapter(search_result);
                 }
-            }
-            else if (query.matches("^[a-zA-Z ]+$")) {
+            } else if (query.matches("^[a-zA-Z ]+$")) {
                 // English text
                 List<Song> result = sql.getEnSongsByQuery(query);
                 if (result.size() > 0) {
@@ -154,18 +155,19 @@ public class SearchActivity extends AppCompatActivity {
                 } else {
                     setEmptyAdapter(search_result);
                 }
-            }
-            else {
+            } else {
                 // Text input
-                ArrayList<Song> result = sql.getSongsByQuery(query);
+                List<Song> result = sql.getSongsByQuery(query);
                 if (result.size() > 0) {
+                    // Sort songs by Levenstain distance.
+                    List<Song> sortedSongs = this.sortListByLevenstaindistanse(result, query);
 
-                    ArrayList<Map<String, Object>> data = new ArrayList<Map<String, Object>>(result.size());
+                    ArrayList<Map<String, Object>> data = new ArrayList<Map<String, Object>>(sortedSongs.size());
                     HashMap<String, Object> m;
 
-                    for (int i = 0; result.size() > i; i++) {
+                    for (int i = 0; sortedSongs.size() > i; i++) {
                         m = new HashMap<>();
-                        Song song = result.get(i);
+                        Song song = sortedSongs.get(i);
                         m.put("name", song.getName());
                         m.put("short_text", song.getText());
                         data.add(m);
@@ -243,9 +245,13 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void setEmptyAdapter(NeverEmptyListView view) {
-        String[] values={};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        String[] values = {};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
         //Set NeverEmptyListView's adapter
         view.setAdapter(adapter);
+    }
+
+    private List<Song> sortListByLevenstaindistanse(List<Song> rawSongs, String query) {
+        return SearchSortingUtil.sortListByLevenstaindistanse(rawSongs, query);
     }
 }
