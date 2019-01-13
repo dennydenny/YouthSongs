@@ -29,7 +29,7 @@ public class FragmentContentsByNameList extends ListFragment {
         DatabaseHelper sql = new DatabaseHelper(getActivity());
         ArrayList <String> songsbyfirstletter = sql.getSongsByFirstLetter(selected_letter);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, songsbyfirstletter);
         setListAdapter(adapter);
     }

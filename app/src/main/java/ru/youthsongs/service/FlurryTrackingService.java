@@ -9,10 +9,10 @@ import java.util.Map;
 
 import ru.youthsongs.BuildConfig;
 
-public class FlurryTrackingService {
+public class FlurryTrackingService implements TrackingService {
     private static final String version = BuildConfig.VERSION_NAME;
 
-    public static synchronized void trackSongOpened(final String songNumber) {
+    public synchronized void trackSongOpened(final String songNumber) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -26,7 +26,7 @@ public class FlurryTrackingService {
         }).start();
     }
 
-    public static synchronized void trackEasterEggFound(final int stage) {
+    public synchronized void trackEasterEggFound(final int stage) {
         new Thread(new Runnable() {
             @Override
             public void run() {

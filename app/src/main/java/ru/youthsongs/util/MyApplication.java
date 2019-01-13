@@ -4,20 +4,27 @@ import android.app.Application;
 import android.util.Log;
 
 import com.flurry.android.FlurryAgent;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 public class MyApplication extends Application {
-
-    private final String flurryApiKey = "G9R7JY9FTHZWSFTCYFZ8";
     private Thread.UncaughtExceptionHandler priorExceptionHandler = null;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        // Fabric for crashes
+        Fabric.with(this, new Crashlytics());
+
+        // Flurry for events
+        String flurryApiKey = "G9R7JY9FTHZWSFTCYFZ8";
         new FlurryAgent.Builder()
                 .withLogEnabled(true)
                 .withLogLevel(Log.INFO)
                 .withCaptureUncaughtExceptions(true)
                 .build(this, flurryApiKey);
+
+
         // get the prior default exception handler
         priorExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
         // Setup handler for uncaught exceptions.
@@ -31,7 +38,8 @@ public class MyApplication extends Application {
     }
 
     public void handleUncaughtException(Thread thread, Throwable e) {
-        Log.e("handleUncaughtException", "Sending UncaughtException to Flurry...");
-        FlurryAgent.onError("UncaughtException", e.getMessage(), e);
+        Log.e("handleUncaughtException", "Sending UncaughtException to Crashlytics...");
+        //FlurryAgent.onError("UncaughtException", e.getMessage(), e);
+        Crashlytics.logException(e);
     }
 }

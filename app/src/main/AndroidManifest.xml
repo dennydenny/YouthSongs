@@ -40,5 +40,8 @@
         </activity>
         <activity android:name=".activity.SettingsActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="86e8a07043944aa926989b4994261bae6b9d93b0" />
     </application>
 </manifest>

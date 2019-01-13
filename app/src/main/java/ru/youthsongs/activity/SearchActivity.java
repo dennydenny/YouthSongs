@@ -26,11 +26,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import ru.youthsongs.R;
 import ru.youthsongs.entity.Song;
 import ru.youthsongs.service.FlurryTrackingService;
+import ru.youthsongs.service.TrackingService;
 import ru.youthsongs.util.DatabaseHelper;
 import ru.youthsongs.util.SearchSortingUtil;
 import ru.youthsongs.util.SearchViewFormatter;
@@ -39,6 +39,7 @@ import ru.youthsongs.util.SearchViewFormatter;
 public class SearchActivity extends AppCompatActivity {
 
     private int easterEggCounter = 0;
+    private TrackingService trackingService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,9 @@ public class SearchActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+        // Init tracking service
+        this.trackingService = new FlurryTrackingService();
+
         NeverEmptyListView search_result = (NeverEmptyListView) findViewById(R.id.search_result_list);
         handleIntent(getIntent());
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -60,13 +64,12 @@ public class SearchActivity extends AppCompatActivity {
         search_result.getListview().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView t = (TextView) view.findViewById(R.id.item_title);
-                String selected_song_name = t.getText().toString();
-                // Following block need for song with english names, because selected_song_name will be like 'Скрой меня (Still)'
-                if (selected_song_name.contains("(")) {
-                    // Remove english part.
-                    int englishStart = selected_song_name.indexOf("(");
-                    selected_song_name = selected_song_name.substring(0, englishStart - 1).trim();
+
+                // If t null it's mean that it's a english text.
+                if (t == null) {
+                    t = (TextView) view.findViewById(R.id.en_item_title);
                 }
+                String selected_song_name = t.getText().toString();
 
                 Intent intent = new Intent(SearchActivity.this, MainActivity.class);
                 intent.putExtra("selected_song", selected_song_name);
@@ -110,7 +113,7 @@ public class SearchActivity extends AppCompatActivity {
                 // Digit input
                 Song resultSong = sql.getSongByNumber(Integer.valueOf(query));
                 if (resultSong != null) {
-                    ArrayList<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+                    ArrayList<Map<String, Object>> data = new ArrayList<>();
                     Map<String, Object> m;
                     m = new HashMap<>();
                     m.put("name", resultSong.getName());
@@ -132,25 +135,22 @@ public class SearchActivity extends AppCompatActivity {
 
                     ArrayList<Map<String, Object>> data = new ArrayList<>(result.size());
                     HashMap<String, Object> m;
-                    StringBuilder sb = new StringBuilder();
 
                     for (int i = 0; result.size() > i; i++) {
                         m = new HashMap<>();
                         Song song = result.get(i);
                         // Russian_name (English name)
-                        sb.append(song.getName()).append(" (").append(song.getEnName()).append(")");
-                        m.put("name", sb.toString());
+                        m.put("name", song.getName());
+                        m.put("en_name", "Англ: " + song.getEnName());
                         m.put("short_text", song.getText());
                         data.add(m);
-                        // Clearing StringBuilder
-                        sb.setLength(0);
                     }
 
                     SimpleAdapter adapter = new SimpleAdapter(this, data,
-                            R.layout.search_result_item,
-                            new String[]{"name", "short_text"},
-                            new int[]{R.id.item_title,
-                                    R.id.item_subtitle});
+                            R.layout.search_result_english_item,
+                            new String[]{"name", "en_name", "short_text"},
+                            new int[]{R.id.en_item_title, R.id.en_item_subtitle,
+                                    R.id.en_item_short_text});
                     search_result.setAdapter(adapter);
                 } else {
                     setEmptyAdapter(search_result);
@@ -162,7 +162,7 @@ public class SearchActivity extends AppCompatActivity {
                     // Sort songs by Levenstain distance.
                     List<Song> sortedSongs = this.sortListByLevenstaindistanse(result, query);
 
-                    ArrayList<Map<String, Object>> data = new ArrayList<Map<String, Object>>(sortedSongs.size());
+                    ArrayList<Map<String, Object>> data = new ArrayList<>(sortedSongs.size());
                     HashMap<String, Object> m;
 
                     for (int i = 0; sortedSongs.size() > i; i++) {
@@ -229,24 +229,24 @@ public class SearchActivity extends AppCompatActivity {
         if (easterEggCounter == 5) {
             Log.i("tinyEasterEgg()", "First stage of easter egg was found");
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.searchEasterEggPopup), Toast.LENGTH_LONG).show();
-            FlurryTrackingService.trackEasterEggFound(1);
+            trackingService.trackEasterEggFound(1);
         }
         if (easterEggCounter == 10) {
             Log.i("tinyEasterEgg()", "Second stage of easter egg was found");
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.searchEasterEggPopup2), Toast.LENGTH_LONG).show();
-            FlurryTrackingService.trackEasterEggFound(2);
+            trackingService.trackEasterEggFound(2);
         }
         if (easterEggCounter == 15) {
             Log.i("tinyEasterEgg()", "Last stage of easter egg was found. He is crazy.");
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.searchEasterEggPopup3), Toast.LENGTH_LONG).show();
-            FlurryTrackingService.trackEasterEggFound(3);
+            trackingService.trackEasterEggFound(3);
             easterEggCounter = 0;
         }
     }
 
     private void setEmptyAdapter(NeverEmptyListView view) {
         String[] values = {};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
         //Set NeverEmptyListView's adapter
         view.setAdapter(adapter);
     }

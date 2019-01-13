@@ -15,16 +15,15 @@ import ru.youthsongs.entity.Song;
 
 public class DatabaseHelper extends SQLiteAssetHelper {
     static final String songs = "songs";
-    ;
 
-    public static final String songs_num = "num";
-    public static final String songs_name = "name";
-    public static final String songs_en_name = "en_name";
-    public static final String songs_authors = "authors";
+    private static final String songs_num = "num";
+    private static final String songs_name = "name";
+    private static final String songs_en_name = "en_name";
+    private static final String songs_authors = "authors";
     public static final String songs_file = "file";
     public static final String songs_theme = "theme";
-    public static final String songs_text = "text";
-    public static final String songs_alt_name = "alt_name";
+    private static final String songs_text = "text";
+    private static final String songs_alt_name = "alt_name";
 
     private static final String DATABASE_NAME = "Sbornik_v8.db";
     private static final int DATABASE_VERSION = 1;
@@ -104,7 +103,7 @@ public class DatabaseHelper extends SQLiteAssetHelper {
     public ArrayList<String> getSongsFirstLetter() {
         String sqlquery = "SELECT DISTINCT substr (name, 1, 1) as letter FROM songs WHERE letter != '' ORDER BY letter";
         try (Cursor c = db.rawQuery(sqlquery, null)) {
-            ArrayList<String> result = new ArrayList<String>();
+            ArrayList<String> result = new ArrayList<>();
             while (c.moveToNext()) {
                 String letter = c.getString(c.getColumnIndex("letter"));
                 result.add(letter);
@@ -119,7 +118,7 @@ public class DatabaseHelper extends SQLiteAssetHelper {
     public ArrayList<String> getSongsByFirstLetter(String first_letter) {
         String sqlquery = "SELECT name FROM songs WHERE name like '" + first_letter + "%' ORDER BY name";
         try (Cursor c = db.rawQuery(sqlquery, null)) {
-            ArrayList<String> songsbyfirstletter = new ArrayList<String>();
+            ArrayList<String> songsbyfirstletter = new ArrayList<>();
             while (c.moveToNext()) {
                 String letter = c.getString(c.getColumnIndex(songs_name));
                 songsbyfirstletter.add(letter);
@@ -210,7 +209,7 @@ public class DatabaseHelper extends SQLiteAssetHelper {
 
         String sqlquery2 = "SELECT name FROM songs WHERE num IN (" + song_nums + ")";
         c = db.rawQuery(sqlquery2, null);
-        ArrayList<String> result = new ArrayList<String>();
+        ArrayList<String> result = new ArrayList<>();
 
         while (c.moveToNext()) {
             String song = c.getString(c.getColumnIndex("name"));

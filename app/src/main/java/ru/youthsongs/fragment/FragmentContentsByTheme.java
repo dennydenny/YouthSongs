@@ -58,10 +58,10 @@ public class FragmentContentsByTheme extends Fragment {
         Map<String, String> m;
 
         // заполняем коллекцию групп из массива с названиями групп
-        groupData = new ArrayList<Map<String, String>>();
+        groupData = new ArrayList<>();
         for (String group : groups) {
             // заполняем список аттрибутов для каждой группы
-            m = new HashMap<String, String>();
+            m = new HashMap<>();
             m.put("groupName", group); // имя компании
             groupData.add(m);
         }
@@ -72,7 +72,7 @@ public class FragmentContentsByTheme extends Fragment {
         int groupTo[] = new int[] {R.id.theme_item_v2};
 
         // создаем коллекцию для коллекций элементов
-        childData = new ArrayList<ArrayList<Map<String, String>>>();
+        childData = new ArrayList<>();
 
 
         /*for (int i = 0; i < Themes.length; i++) {

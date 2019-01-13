@@ -19,6 +19,7 @@ public class SearchSortingUtil {
             songs.put(rawSong, getLevenstainDistanse(rawSong.getName(), query));
         }
         Map<Song, Integer> sortedMap = sortByValue(songs);
+        
         return new ArrayList<>(sortedMap.keySet());
     }
 
@@ -26,7 +27,7 @@ public class SearchSortingUtil {
 
         // 1. Convert Map to List of Map
         List<Map.Entry<Song, Integer>> list =
-                new LinkedList<Map.Entry<Song, Integer>>(unsortMap.entrySet());
+                new LinkedList<>(unsortMap.entrySet());
 
         // 2. Sort list with Collections.sort(), provide a custom Comparator
         //    Try switch the o1 o2 position for a different order
@@ -38,7 +39,7 @@ public class SearchSortingUtil {
         });
 
         // 3. Loop the sorted list and put it into a new insertion order Map LinkedHashMap
-        Map<Song, Integer> sortedMap = new LinkedHashMap<Song, Integer>();
+        Map<Song, Integer> sortedMap = new LinkedHashMap<>();
         for (Map.Entry<Song, Integer> entry : list) {
             sortedMap.put(entry.getKey(), entry.getValue());
         }

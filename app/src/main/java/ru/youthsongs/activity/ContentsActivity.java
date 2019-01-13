@@ -22,10 +22,8 @@ import ru.youthsongs.fragment.FragmentContentsByNameController;
 import ru.youthsongs.fragment.FragmentContentsByThemeController;
 import ru.youthsongs.util.DatabaseHelper;
 
-;
-
 public class ContentsActivity extends AppCompatActivity {
-    LocalActivityManager mLocalActivityManager = new LocalActivityManager(this, false);
+    private LocalActivityManager mLocalActivityManager = new LocalActivityManager(this, false);
     private DatabaseHelper sql;
 
     @Override
@@ -103,8 +101,8 @@ public class ContentsActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState (Bundle outState)
     {
+        super.onSaveInstanceState(outState);
         mLocalActivityManager.saveInstanceState();
-
     }
 
     private void setupViewPager(ViewPager viewPager) {

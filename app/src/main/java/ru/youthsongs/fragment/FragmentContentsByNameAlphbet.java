@@ -1,6 +1,5 @@
 package ru.youthsongs.fragment;
 
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
@@ -32,7 +31,7 @@ public class FragmentContentsByNameAlphbet extends Fragment {
 
         GridView gvMain = (GridView) v.findViewById(R.id.grid_songs_byname);
         ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<String>(getActivity(), R.layout.griditem, R.id.push_button, songsfirstletter);
+        adapter = new ArrayAdapter<>(getActivity(), R.layout.griditem, R.id.push_button, songsfirstletter);
         gvMain.setAdapter(adapter);
 
         gvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {

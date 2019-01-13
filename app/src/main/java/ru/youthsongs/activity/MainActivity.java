@@ -31,6 +31,7 @@ import java.util.List;
 import ru.youthsongs.R;
 import ru.youthsongs.entity.Song;
 import ru.youthsongs.service.FlurryTrackingService;
+import ru.youthsongs.service.TrackingService;
 import ru.youthsongs.util.DatabaseHelper;
 import ru.youthsongs.util.Formatter;
 
@@ -38,28 +39,27 @@ public class MainActivity extends AppCompatActivity {
 
     // Название песни, выбранной в данный момент.
     String selected_song;
-    private String previousSelectedSong = "dummy";
+    private static String previousSelectedSong = "dummy";
     private SharedPreferences sp;
     private String previousTextSize;
     // List of ids of text views which should meet shared preferences.
     private List<Integer> updatableTextViewsIds = new ArrayList<>();
     private DatabaseHelper sql;
     private SharedPreferences.OnSharedPreferenceChangeListener listener;
+    private TrackingService trackingService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sp = PreferenceManager.getDefaultSharedPreferences(this);
-        // Init preferences listener to handle changes.
-        initPreferencesListener();
+
+        // Init screen mode
+        initScreenMode();
+        // Init tracking service
+        this.trackingService = new FlurryTrackingService();
 
         setPreviousTextSize();
         setContentView(R.layout.activity_main);
-
-        if (sp.getBoolean("keepScreenOn", false)) {
-            // Указание держать экран включенным на всё время работы активити.
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }
 
         if (sp.contains("lastSelectedSong")) selected_song = sp.getString("lastSelectedSong", null);
 
@@ -310,23 +310,15 @@ public class MainActivity extends AppCompatActivity {
         this.previousTextSize = sp.getString("textSizePref", getResources().getString(R.string.textSizesDefault));
     }
 
-    private void initPreferencesListener() {
-        listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-                switch (key) {
-                    case "keepScreenOn":
-                        if (prefs.getBoolean(key, false)) {
-                            // Указание держать экран включенным на всё время работы активити.
-                            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-                        }
-                        break;
-                }
-            }
-        };
-
-        sp.registerOnSharedPreferenceChangeListener(listener);
+    private void initScreenMode() {
+        if (sp.getBoolean("keepScreenOn", false)) {
+            // Указание держать экран включенным на всё время работы активити.
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+        else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
     }
-
     // Wrapper under FlurryTrackingService.trackSongOpened
     private void trackSongOpened(final String songNumber) {
         // Checking internet permissions.
@@ -339,7 +331,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             Log.d("tracking", "Good, we already have internet permission.");
-            FlurryTrackingService.trackSongOpened(songNumber);
+            trackingService.trackSongOpened(songNumber);
         }
     }
 

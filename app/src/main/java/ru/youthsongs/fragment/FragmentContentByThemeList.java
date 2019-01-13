@@ -36,7 +36,7 @@ public class FragmentContentByThemeList extends ListFragment {
 
         Log.i("contents_bytheme_list", "Time of gettings song is " + timeout + " ms");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, songsbytheme);
         setListAdapter(adapter);
     }

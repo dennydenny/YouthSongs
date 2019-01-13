@@ -116,7 +116,7 @@ public class Formatter {
         long timeout = System.currentTimeMillis();
         SpannableStringBuilder result = new SpannableStringBuilder();
 
-        final List<String> tagValues = new ArrayList<String>();
+        final List<String> tagValues = new ArrayList<>();
         Pattern TAG_REGEX = Pattern.compile("<(.+?)>");
         final Matcher matcher = TAG_REGEX.matcher(textToChange);
         while (matcher.find()) {
@@ -138,7 +138,7 @@ public class Formatter {
             int startingIndex = textToChange.indexOf(KeyWord);
             int endingIndex = startingIndex + KeyWord.length();
 
-            if (startingIndex > -1) { ;
+            if (startingIndex > -1) {
                 result.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), startingIndex, endingIndex, 0);
             }
         }
@@ -157,7 +157,7 @@ public class Formatter {
     }
 
 
-};
+}
 
 
 
