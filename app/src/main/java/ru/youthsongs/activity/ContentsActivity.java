@@ -2,8 +2,10 @@ package ru.youthsongs.activity;
 
 import android.app.LocalActivityManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,7 @@ import ru.youthsongs.util.DatabaseHelper;
 public class ContentsActivity extends AppCompatActivity {
     private LocalActivityManager mLocalActivityManager = new LocalActivityManager(this, false);
     private DatabaseHelper sql;
+    private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,8 @@ public class ContentsActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+        // Init preferences
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     @Override
@@ -82,6 +88,8 @@ public class ContentsActivity extends AppCompatActivity {
     {
         mLocalActivityManager.dispatchResume();
         super.onResume();
+        // Init screen mode to make screen always on or not.
+        initScreenMode();
     }
 
     @Override
@@ -138,6 +146,16 @@ public class ContentsActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
+        }
+    }
+
+    private void initScreenMode() {
+        if (sp.getBoolean("keepScreenOn", false)) {
+            // Указание держать экран включенным на всё время работы активити.
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+        else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
     }
 }

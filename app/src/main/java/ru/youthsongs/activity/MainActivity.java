@@ -53,12 +53,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         sp = PreferenceManager.getDefaultSharedPreferences(this);
 
-        // Init screen mode
-        initScreenMode();
+        setConfiguredTextSize();
         // Init tracking service
         this.trackingService = new FlurryTrackingService();
-
-        setPreviousTextSize();
         setContentView(R.layout.activity_main);
 
         if (sp.contains("lastSelectedSong")) selected_song = sp.getString("lastSelectedSong", null);
@@ -77,9 +74,6 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         Log.d("onCreate", "onCreate second song is " + selected_song);
-
-        // Saving current song to be able open it once app will be closed.
-        saveLastSelectedSong();
 
         // Отображаем песню.
         showSong(selected_song);
@@ -128,10 +122,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        // Init screen mode
+        initScreenMode();
+
         // Checking does setting was changed. If so we'll update size of text.
         if (!previousTextSize.equals(sp.getString("textSizePref", getResources().getString(R.string.textSizesDefault)))) {
             updateTextSize();
         }
+        setConfiguredTextSize();
+        // Saving current song to be able open it once app will be closed.
+        saveLastSelectedSong();
     }
 
     protected void onSaveInstanceState(Bundle outState) {
@@ -306,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setPreviousTextSize() {
+    private void setConfiguredTextSize() {
         this.previousTextSize = sp.getString("textSizePref", getResources().getString(R.string.textSizesDefault));
     }
 

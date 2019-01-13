@@ -3,7 +3,9 @@ package ru.youthsongs.activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -40,6 +42,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private int easterEggCounter = 0;
     private TrackingService trackingService;
+    private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,15 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // Init preferences
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+    }
+
+    @Override
+    protected void onResume () {
+        super.onResume();
+        // Init screen mode to make screen always on or not.
+        initScreenMode();
     }
 
 
@@ -253,5 +265,15 @@ public class SearchActivity extends AppCompatActivity {
 
     private List<Song> sortListByLevenstaindistanse(List<Song> rawSongs, String query) {
         return SearchSortingUtil.sortListByLevenstaindistanse(rawSongs, query);
+    }
+
+    private void initScreenMode() {
+        if (sp.getBoolean("keepScreenOn", false)) {
+            // Указание держать экран включенным на всё время работы активити.
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+        else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
     }
 }
