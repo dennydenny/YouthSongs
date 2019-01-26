@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:layout_marginTop="@dimen/aboutMarginTopLight"
-                android:text="Это приложение является мобильной версией сборника христианских песен"
+                android:text="Это приложение является мобильной версией сборника христианских песен г. Самара издания 2013 г."
                 android:textSize="@dimen/aboutTextSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

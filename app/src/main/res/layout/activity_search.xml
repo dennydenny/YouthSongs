@@ -42,6 +42,7 @@
             custom:holderTextFontSize="9sp"
             custom:holderTextColor="#9e9e9e"
             custom:holderText="@string/searchEmptyResult"
+            custom:holderImageSize="100dp"
             custom:holderImageBackground="@drawable/ic_sentiment_dissatisfied_grey_800_24dp"/>
 
     <TextView

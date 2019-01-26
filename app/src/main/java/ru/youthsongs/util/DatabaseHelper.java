@@ -207,7 +207,7 @@ public class DatabaseHelper extends SQLiteAssetHelper {
         c.moveToFirst();
         String song_nums = c.getString(c.getColumnIndex("song_nums")).trim();
 
-        String sqlquery2 = "SELECT name FROM songs WHERE num IN (" + song_nums + ")";
+        String sqlquery2 = "SELECT name FROM songs WHERE num IN (" + song_nums + ") ORDER BY name";
         c = db.rawQuery(sqlquery2, null);
         ArrayList<String> result = new ArrayList<>();
 
