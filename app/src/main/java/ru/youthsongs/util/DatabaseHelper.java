@@ -2,6 +2,7 @@ package ru.youthsongs.util;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -202,10 +203,12 @@ public class DatabaseHelper extends SQLiteAssetHelper {
     }
 
     public ArrayList<String> getSongsByTheme(String theme) {
+
         String sqlquery = "SELECT song_nums FROM themes WHERE theme = '" + theme + "';";
         Cursor c = db.rawQuery(sqlquery, null);
         c.moveToFirst();
         String song_nums = c.getString(c.getColumnIndex("song_nums")).trim();
+
 
         String sqlquery2 = "SELECT name FROM songs WHERE num IN (" + song_nums + ") ORDER BY name";
         c = db.rawQuery(sqlquery2, null);
