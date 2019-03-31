@@ -10,7 +10,6 @@ import java.util.Map;
 import ru.youthsongs.BuildConfig;
 
 public class FlurryTrackingService implements TrackingService {
-    private static final String version = BuildConfig.VERSION_NAME;
 
     public synchronized void trackSongOpened(final String songNumber) {
         new Thread(new Runnable() {
@@ -19,7 +18,6 @@ public class FlurryTrackingService implements TrackingService {
                 Log.i("tracking", "Sending Song_Opened event to flurry... Song is " + songNumber);
                 Map<String, String> eventParams = new HashMap<>();
                 eventParams.put("Number", songNumber);
-                eventParams.put("Version", version);
 
                 FlurryAgent.logEvent("Song_Opened", eventParams);
             }
@@ -33,7 +31,6 @@ public class FlurryTrackingService implements TrackingService {
                 Log.i("tracking", "Sending Easter_Egg_Found event to flurry... Stage is " + stage);
                 Map<String, String> eventParams = new HashMap<>();
                 eventParams.put("Stage", String.valueOf(stage));
-                eventParams.put("Version", version);
 
                 FlurryAgent.logEvent("Easter_Egg_Found", eventParams);
             }
