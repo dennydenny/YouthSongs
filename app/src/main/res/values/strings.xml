@@ -58,4 +58,12 @@
     <string name="searchEasterEggPopup">Зачем нажимать так много раз???</string>
     <string name="searchEasterEggPopup2">Займись лучше чем-нибудь полезным...</string>
     <string name="searchEasterEggPopup3">Глупость привязалась к сердцу юноши, но исправительная розга удалит ее от него.(Притчи 22:15)</string>
+    <string name="chordsDownloadTitle">Загрузить аккорды?</string>
+    <string name="chordsDownloadDesc">Для отображения аккордов необходимо скачать их. Нажмите "Да", если вы согласны сделать это прямо сейчас (объем файлов ~100 МБ)</string>
+    <string name="pdfChordsUrl">http://xn--41-flcwjireb0ahw.xn--p1ai/</string>
+    <string name="pdfChordsFileName">NewChords.zip</string>
+    <string name="pdfChordsDownloadingTitle">Загрузка</string>
+    <string name="pdfChordsExtractingTitle">Распаковка</string>
+    <string name="pdfChordsExtractingFailed">Что-то пошло не так :(</string>
+    <string name="pdfChordsControlQuantity">320</string>
 </resources>

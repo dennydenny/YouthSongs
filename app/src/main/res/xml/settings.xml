@@ -5,11 +5,16 @@
         android:entryValues="@array/textSizesValues"
         android:key="textSizePref"
         android:defaultValue="@string/textSizesDefault"
-        android:summary="Указать размет текста песни"
+        android:summary="Указать размер текста песни"
         android:title="Размер текста" />
     <SwitchPreference
         android:defaultValue="false"
         android:key="keepScreenOn"
         android:summary="Если опция включена, то экран будет активен всё время работы приложения."
         android:title="Не выключать экран" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="showChords"
+        android:summary="Если опция включена, то в песнях будут отображаться аккорды."
+        android:title="Показывать аккорды" />
 </PreferenceScreen>
