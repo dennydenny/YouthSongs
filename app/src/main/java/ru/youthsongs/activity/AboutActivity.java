@@ -22,7 +22,7 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.about_toolbar);
+        Toolbar toolbar = findViewById(R.id.about_toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
         //toolbar.setTitle("");
         toolbar.setTitle("О программе");
@@ -34,17 +34,6 @@ public class AboutActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        // Setting a cover image
-        ImageView coverImage = (ImageView) findViewById(R.id.coverImage);
-        try (InputStream ims = getResources().getAssets().open("cover.jpg")) {
-            // load image as Drawable
-            Drawable d = Drawable.createFromStream(ims, null);
-            // set image to ImageView
-            coverImage.setImageDrawable(d);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         // Setting a version
         TextView versionTv = (TextView) findViewById(R.id.aboutVersion);
