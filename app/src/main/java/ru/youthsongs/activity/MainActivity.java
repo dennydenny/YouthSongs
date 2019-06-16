@@ -4,9 +4,14 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Typeface;
+import android.graphics.pdf.PdfRenderer;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -20,11 +25,18 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.github.chrisbanes.photoview.PhotoView;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +45,7 @@ import ru.youthsongs.entity.Song;
 import ru.youthsongs.service.FlurryTrackingService;
 import ru.youthsongs.service.TrackingService;
 import ru.youthsongs.util.DatabaseHelper;
+import ru.youthsongs.util.FileHepler;
 import ru.youthsongs.util.Formatter;
 
 public class MainActivity extends AppCompatActivity {
@@ -81,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void saveLastSelectedSong() {
         SharedPreferences.Editor editor1 = sp.edit();
-        editor1.putString("lastSelectedSong",selected_song);
+        editor1.putString("lastSelectedSong", selected_song);
         editor1.commit();
     }
 
@@ -270,6 +283,101 @@ public class MainActivity extends AppCompatActivity {
         Log.i("Showtextsong", "Time of Showtextsong " + timeout + " ms");
     }
 
+    private void showimagesong(Song song) throws IOException {
+        String songName = song.getName();
+        File songFile = FileHepler.getChordsFileByNumber(this, song.getNumber());
+
+        // Processing pdf file.
+        Bitmap bitmap = this.getBitmapFromPDF(songFile);
+
+        // Working with views.
+        PhotoView imageView = new PhotoView(this);
+        //Bitmap newBitmap = Bitmap.createBitmap(bitmap, 0, 0, (int)Math.round(bitmap.getWidth()*0.8), (int)Math.round(bitmap.getHeight()*0.8), null, false);
+        imageView.setImageBitmap(bitmap);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+        RelativeLayout relativeLayout = findViewById(R.id.reader_relative_body);
+
+        ScrollView scrollView = new ScrollView(this);
+        scrollView.setFillViewport(true);
+        relativeLayout.addView(scrollView);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) scrollView.getLayoutParams();
+        params.addRule(RelativeLayout.ABOVE, R.id.reader_toolbar);
+        params.setMargins(0, 0, 0, 0);
+        params.height = RelativeLayout.LayoutParams.MATCH_PARENT;
+        params.width = RelativeLayout.LayoutParams.MATCH_PARENT;
+        scrollView.setLayoutParams(params);
+        scrollView.addView(imageView);
+
+        // Formatting song's name in toolbar (title)
+        Toolbar toolbar = findViewById(R.id.reader_toolbar);
+        toolbar.setTitle(songName);
+    }
+
+    // Method which converts pdf file with chords to image.
+    private Bitmap getBitmapFromPDF(File file) throws IOException {
+        ParcelFileDescriptor parcelFileDescriptor = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY);
+        // This is the PdfRenderer we use to render the PDF.
+        PdfRenderer pdfRenderer = new PdfRenderer(parcelFileDescriptor);
+
+
+        // Pdf may contain two pages.
+        if (pdfRenderer.getPageCount() == 2) {
+
+            // Processing first page.
+            PdfRenderer.Page currentPage = pdfRenderer.openPage(0);
+            Bitmap first = Bitmap.createBitmap(currentPage.getWidth(), currentPage.getHeight(), Bitmap.Config.ARGB_8888);
+            currentPage.render(first, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+            currentPage.close();
+
+            // Second.
+            currentPage = pdfRenderer.openPage(1);
+            Bitmap second = Bitmap.createBitmap(currentPage.getWidth(), currentPage.getHeight(), Bitmap.Config.ARGB_8888);
+            currentPage.render(second, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+            currentPage.close();
+
+            parcelFileDescriptor.close();
+            pdfRenderer.close();
+
+            return mergeTwoBitmaps(first, second);
+
+        }
+        else {
+            // Single page.
+            PdfRenderer.Page currentPage = pdfRenderer.openPage(0);
+            Bitmap single = Bitmap.createBitmap(currentPage.getWidth(), currentPage.getHeight(), Bitmap.Config.ARGB_8888);
+            currentPage.render(single, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+            currentPage.close();
+
+            parcelFileDescriptor.close();
+            pdfRenderer.close();
+
+            return single;
+        }
+    }
+
+    private Bitmap mergeTwoBitmaps(Bitmap bitmap1, Bitmap bitmap2) {
+        Bitmap mergedBitmap = null;
+
+        int w, h = 0;
+
+        h = bitmap1.getHeight() + bitmap2.getHeight();
+        if (bitmap1.getWidth() > bitmap2.getWidth()) {
+            w = bitmap1.getWidth();
+        } else {
+            w = bitmap2.getWidth();
+        }
+
+        mergedBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(mergedBitmap);
+
+        canvas.drawBitmap(bitmap1, 0f, 0f, null);
+        canvas.drawBitmap(bitmap2, 0f, bitmap1.getHeight(), null);
+
+        return mergedBitmap;
+    }
+
     /*
     Основной метод отображения песни.
      */
@@ -284,7 +392,17 @@ public class MainActivity extends AppCompatActivity {
             // Setting previous song to prevent stats duplication in future.
             this.previousSelectedSong = selected_song;
         }
-        showTextSong(song);
+        if (sp.getBoolean("showChords", false)) {
+            try {
+                showimagesong(song);
+            } catch (Exception e) {
+                e.printStackTrace();
+                showTextSong(song);
+                Toast.makeText(getApplicationContext(), "При открытии аккордов возникла ошибка " + e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        } else {
+            showTextSong(song);
+        }
     }
 
     // Method which reads text size from shared preferences and updates song's text size.
@@ -314,22 +432,21 @@ public class MainActivity extends AppCompatActivity {
         if (sp.getBoolean("keepScreenOn", false)) {
             // Указание держать экран включенным на всё время работы активити.
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }
-        else {
+        } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
     }
+
     // Wrapper under FlurryTrackingService.trackSongOpened
     private void trackSongOpened(final String songNumber) {
         // Checking internet permissions.
-        if (ContextCompat.checkSelfPermission( this, Manifest.permission.INTERNET ) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
             // If internet is not granted we will ask about it.
             Log.d("tracking", "WAT, we have no internet permission! Requesting...");
             ActivityCompat.requestPermissions(this,
-                    new String[] {Manifest.permission.INTERNET},
+                    new String[]{Manifest.permission.INTERNET},
                     0);
-        }
-        else {
+        } else {
             Log.d("tracking", "Good, we already have internet permission.");
             trackingService.trackSongOpened(songNumber);
         }
